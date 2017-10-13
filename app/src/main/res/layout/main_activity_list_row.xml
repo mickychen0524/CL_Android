@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/color_white_main"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/main_game_tile_image"
+            android:layout_width="103dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/game_logo_sam" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_game_price_txt"
+            android:layout_marginTop="18dp"
+            android:text="$25,000,000"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_orange_main"
+            android:layout_alignStart="@+id/main_game_date_txt" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_game_date_txt"
+            android:text="Thursday, 01/02/2017"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="21sp"
+            android:textColor="@color/color_orange_main"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_alignBottom="@+id/main_game_tile_image"
+            android:layout_toEndOf="@+id/main_game_tile_image" />
+
+    </RelativeLayout>
+</RelativeLayout>

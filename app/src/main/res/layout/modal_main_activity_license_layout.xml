@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_white_rect">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_modal_caption_txt"
+        android:padding="10dp"
+        android:text="Enter User License"
+        android:gravity="center"
+        android:textColor="@color/color_orange_main"
+        android:textStyle="bold"
+        android:textSize="26sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:id="@+id/main_modal_license_txt"
+        android:gravity="left"
+        android:layout_margin="10dp"
+        android:background="@drawable/background_white_orange_rect"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/main_modal_save_btn"
+        android:background="@drawable/background_white_orange_rect"
+        android:text="Save"
+        android:textColor="@color/color_orange_main"
+        android:textStyle="bold"
+        android:textSize="26sp"
+        android:textAllCaps="false"/>
+</LinearLayout>

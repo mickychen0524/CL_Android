@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/main_header_layout">
+        <ImageView
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/main_left_img"
+            android:src="@drawable/clerklogo215x215" />
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:id="@+id/permission_right_img"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/lazlologo_h"/>
+        <Button
+            android:layout_width="114dp"
+            android:layout_height="35dp"
+            android:id="@+id/refund_back_btn"
+            android:background="@android:color/transparent"
+            android:layout_alignParentEnd="true"
+            android:text="&lt; Back"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:onClick="onBackAction"
+            android:textColor="@color/color_orange_main"
+            android:layout_below="@+id/permission_right_img"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.dlazaro66.qrcodereaderview.QRCodeReaderView
+            android:id="@+id/refund_qrdecoderview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/refund_btn"
+            android:text="Refund"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:onClick="onRefundAction"
+            android:textColor="@color/color_white_main"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_orange_light"
+            android:layout_margin="10dp"/>
+    </RelativeLayout>
+</LinearLayout>

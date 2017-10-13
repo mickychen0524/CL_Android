@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_blue_light">
+    tools:context=".PermissionActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorMainRed"
-        android:id="@+id/main_header_layout">
+        android:layout_height="80dp"
+        android:id="@+id/main_header_layout"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
         <ImageView
-            android:layout_width="160dp"
-            android:layout_height="50dp"
+            android:layout_width="77dp"
+            android:layout_height="77dp"
             android:layout_marginTop="2dp"
-            android:src="@drawable/countryfairlogowhite" />
-
+            android:src="@drawable/clerklogo215x215" />
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:id="@+id/permission_right_img"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/lazlologo_h"/>
+        <Button
+            android:layout_width="114dp"
+            android:layout_height="35dp"
+            android:background="@android:color/transparent"
+            android:layout_alignParentEnd="true"
+            android:text="Main"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textColor="@color/color_orange_main"
+            android:layout_below="@+id/permission_right_img"/>
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
@@ -34,7 +55,7 @@
                 android:padding="15dp"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:text="We need you to help us enable some of your phone’s features in order to use this app, otherwise it may not work properly."/>
+                android:text="We need you to enable some phone feature to use this app, if you do not enable them the app will not function fully"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,7 +75,7 @@
                     android:gravity="center_vertical"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:text="You will see this message when clicking the button below. Choose OK."/>
+                    android:text="You will see this dialog when you press the button. Choose OK."/>
             </LinearLayout>
 
             <Button
@@ -64,11 +85,10 @@
                 android:background="@color/color_blue_light"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:padding="10dp"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/color_grey_dark"
-                android:text="Can we use your Camera?"
+                android:text="Enable Camera"
                 android:textAllCaps="false"
                 android:layout_below="@+id/permission_camera_layout" />
 
@@ -79,7 +99,7 @@
                 android:layout_marginBottom="8dp"
                 android:id="@+id/permission_camera_state_img"
                 android:layout_alignBottom="@id/permission_camera_btn"
-                android:background="@drawable/checkmark_green" />
+                android:background="@drawable/checkgreen2" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,7 +119,7 @@
                     android:gravity="center_vertical"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:text="You will see this message when clicking the button below. Choose OK."/>
+                    android:text="You will see this dialog when you press the button. Choose OK."/>
             </LinearLayout>
 
             <Button
@@ -109,11 +129,10 @@
                 android:background="@color/color_blue_light"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:padding="10dp"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/color_grey_dark"
-                android:text="Can we know where you are?"
+                android:text="Enable Location"
                 android:textAllCaps="false"
                 android:layout_below="@+id/permission_location_layout"/>
             <Button
@@ -123,7 +142,7 @@
                 android:layout_marginBottom="8dp"
                 android:id="@+id/permission_location_state_img"
                 android:layout_alignBottom="@id/permission_location_btn"
-                android:background="@drawable/checkmark_green" />
+                android:background="@drawable/checkgreen2" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,7 +162,7 @@
                     android:gravity="center_vertical"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:text="You will see this message when clicking the button below. Choose OK."/>
+                    android:text="You will see this dialog when you press the button. Choose OK."/>
             </LinearLayout>
 
             <Button
@@ -153,11 +172,10 @@
                 android:background="@color/color_blue_light"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:padding="10dp"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/color_grey_dark"
-                android:text="Can we save photos?"
+                android:text="Enable External Storage"
                 android:textAllCaps="false"
                 android:layout_below="@+id/permission_notification_layout"/>
 
@@ -168,52 +186,8 @@
                 android:layout_marginBottom="8dp"
                 android:id="@+id/permission_notificatioin_state_img"
                 android:layout_alignBottom="@id/permission_notification_btn"
-                android:background="@drawable/checkmark_green" />
+                android:background="@drawable/checkgreen2" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:id="@+id/permission_phonestate_layout"
-                android:layout_below="@+id/permission_notification_btn"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/alert4"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:gravity="center_vertical"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:text="You will see this message when clicking the button below. Choose OK."/>
-            </LinearLayout>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/permission_phonestate_btn"
-                android:background="@color/color_blue_light"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:padding="10dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@color/color_grey_dark"
-                android:text="Can we know your phone state?"
-                android:textAllCaps="false"
-                android:layout_below="@+id/permission_phonestate_layout"/>
-
-            <Button
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginBottom="8dp"
-                android:id="@+id/permission_phone_state_img"
-                android:layout_alignBottom="@id/permission_phonestate_btn"
-                android:background="@drawable/checkmark_green" />
 
         </RelativeLayout>
     </ScrollView>

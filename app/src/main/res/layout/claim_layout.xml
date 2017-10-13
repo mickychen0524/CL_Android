@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/main_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <ImageView
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/clerklogo215x215" />
+
+        <ImageView
+            android:id="@+id/permission_right_img"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/lazlologo_h" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_header_layout"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/claim_caption_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_toStartOf="@+id/claim_qrdecoderview"
+                android:text="Enter Coupon Code"
+                android:textColor="@color/color_grey_light"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/claim_error_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/claim_caption_txt"
+                android:layout_marginTop="25dp"
+                android:layout_toStartOf="@+id/claim_qrdecoderview"
+                android:text="Oops! That's not a valid code"
+                android:textColor="@color/color_red_error"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.dlazaro66.qrcodereaderview.QRCodeReaderView
+                android:id="@+id/claim_qrdecoderview"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/claim_insert_code_edit"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/color_blue_light"
+            android:hint="Code"
+            android:padding="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:text="The Player will show you a screen that has a Qr or Bar Code and a short code above it. Enter the short code."
+            android:textColor="@color/color_grey_light"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/claim_next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/color_blue_light"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textColor="@color/color_grey_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/claim_cancel_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:background="@color/color_pink_main"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/color_grey_dark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</RelativeLayout>

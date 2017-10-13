@@ -1,44 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="dev.countryfair.player.playlazlo.com.countryfair">
+    package="lite.storeclerk.admin.playlazlo.com.storeclerklite">
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.camera.front"
-        android:required="false" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.fingerprint"
+        android:required="false"/>
 
     <application
-        android:name=".helper.AppDelegate"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity
-            android:name=".SplashActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".PermissionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,24 +35,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PermissionActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".TicketListActivity"
+            android:name=".CheckoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -71,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TicketDetailActivty"
+            android:name=".ActivateActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -79,7 +59,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GiftcardCheckoutFileDownloadActivity"
+            android:name=".RegisterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -87,7 +67,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TicketRefundActivity"
+            android:name=".RefundActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -95,7 +75,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShoppingCartListActivity"
+            android:name=".ReportChartActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -103,7 +83,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CheckoutFileDownloadActivity"
+            android:name=".PaidInFullActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -111,112 +91,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShoppingCartGiftListActivity"
+            android:name=".ClaimActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TicketValidationActivity"
+            android:name=".ClaimAmountActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CardsListActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            android:name="com.facebook.accountkit.ui.AccountKitActivity"
+            android:theme="@style/AppLoginTheme"
+            tools:replace="android:theme">
+
         </activity>
-        <activity
-            android:name=".LoyaltyActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name="com.facebook.accountkit.ui.AccountKitEmailRedirectActivity">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".StoreLocatorActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustNothing">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".GiftCardDetailsActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".PushMessagesActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".SocialScanActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ScanPromptActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/ak_login_protocol_scheme" />
             </intent-filter>
         </activity>
 
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.android.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
-        <service
-            android:name=".service.SampleService"
-            android:exported="false" />
-        <service
-            android:name=".service.GiftcardCheckoutStatusGettingService"
-            android:exported="false" />
-        <service
-            android:name=".service.CheckoutStatusGettingService"
-            android:exported="false" />
         <service
             android:name=".service.GettingRetailerListService"
-            android:exported="false" />
-        <service
-            android:name=".service.TicketDownloadService"
-            android:exported="false" />
+            android:exported="false">
+
+        </service>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/FACEBOOK_APP_ID" />
+        <meta-data
+            android:name="com.facebook.accountkit.ApplicationName"
+            android:value="@string/app_name" />
+        <meta-data
+            android:name="com.facebook.accountkit.ClientToken"
+            android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
 
         <service
             android:name=".azuregcm.MyInstanceIDService"
@@ -227,7 +144,7 @@
         </service>
         <service
             android:name=".azuregcm.RegistrationService"
-            android:exported="false" />
+            android:exported="false"></service>
 
         <receiver
             android:name="com.microsoft.windowsazure.notifications.NotificationsBroadcastReceiver"
@@ -235,29 +152,12 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-                <category android:name="com.digicians.azuregcmdemo" />
+                <category android:name="com.lazlo326.admin.storeclerk.dev" />
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".azuregcm.SilentDownloadService"
-            android:exported="false" />
 
-        <meta-data
-            android:name="mobi.windfall.receipt.LicenseKey"
-            android:value="OTHS4AMV-LIPMZY6D-KDMFNOAX-5B3T7CB3-DPTWPCB3-DPTWPCB3-DPTWOKAA-7N3SMIVO" />
 
-        <service
-            android:name=".service.ConfigService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".service.SocialConnectService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".service.SendBleDataService"
-            android:exported="false"/>
     </application>
 
 </manifest>
