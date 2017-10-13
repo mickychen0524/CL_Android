@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryBlack"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorMainRed">
+        <TableRow>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/action_bar_sublay_left"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/countryfairlogowhite" />
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/action_bar_sublay_right"
+                android:layout_weight="5.5">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/headershoppingcart"
+                    android:tint="@color/colorWhite"
+                    android:background="@color/colorMainRed"
+                    android:id="@+id/shopping_cart_btn"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_alignParentEnd="true" />
+                <TextView
+                    android:id="@+id/badge_shoppingcart_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/badge_circle_red"
+                    android:text="2"
+                    android:textColor="#FFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/helpquestionmark"
+                    android:tint="@color/colorWhite"
+                    android:background="@color/colorMainRed"
+                    android:id="@+id/help_overlay_btn"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toLeftOf="@+id/shopping_cart_btn"
+                    android:layout_toStartOf="@+id/shopping_cart_btn" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/header_ticket"
+                    android:tint="@color/colorWhite"
+                    android:background="@color/colorMainRed"
+                    android:id="@+id/ticket_list_btn"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toLeftOf="@+id/help_overlay_btn"
+                    android:layout_toStartOf="@+id/help_overlay_btn" />
+                <TextView
+                    android:id="@+id/badge_ticket_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/help_overlay_btn"
+                    android:background="@drawable/badge_circle_blue"
+                    android:text="2"
+                    android:textColor="#be1414"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </TableRow>
+    </TableLayout>
+
+    <include layout="@layout/content_list" />
+
+</LinearLayout>

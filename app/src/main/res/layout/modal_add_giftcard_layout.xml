@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/modal_top_image"
+        android:layout_marginTop="-40dp"
+        android:layout_alignParentStart="true" android:background="@drawable/background_white_rect">
+        <TextView
+            android:id="@+id/modal_title_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="@string/add_to_cart"
+            android:textColor="#111"
+            android:textSize="28sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/modal_amount_giftcard_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/modal_title_text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left"
+            android:text="Gift card amount?"
+            android:textColor="#111"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+
+        <RelativeLayout android:id="@+id/rlAmountList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@id/modal_amount_giftcard_text"
+        >
+
+
+        <Spinner
+            android:id="@+id/modal_giftcard_amount_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="15dp"
+            android:background="#ffffff"
+            android:gravity="left"
+            android:layout_centerVertical="true"
+            android:textColor="#111"
+            android:textSize="18sp"/>
+
+            <ImageView  android:layout_width="10dp"
+                       android:layout_height="10dp"
+                       android:adjustViewBounds="true"
+                        android:layout_centerVertical="true"
+                       android:layout_alignParentRight="true"
+                       android:src="@drawable/dropdownmenu"
+            />
+
+
+
+            </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/gift_cart_tile_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@id/rlAmountList"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/cf_icon_60"
+            android:visibility="invisible"/>
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@id/gift_cart_tile_image"
+            android:orientation="vertical"
+        >
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:text="Disclaimer:"
+                      android:textSize="20sp"
+                      android:textStyle="bold"
+            />
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      tools:text="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsumdfdfdf "
+                      android:textSize="18sp"
+                      android:ellipsize="end"
+                      android:id="@+id/tvDisclaimer"
+            />
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/gift_cart_brand_logo"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/rlAmountList"
+            android:layout_margin="10dp"
+            android:layout_toEndOf="@id/gift_cart_tile_image"
+            android:src="@drawable/cf_icon_60"/>
+        <ImageView
+            android:id="@+id/gift_cart_game_logo"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/gift_cart_brand_logo"
+            android:layout_margin="10dp"
+            android:layout_toEndOf="@id/gift_cart_tile_image"
+            android:src="@drawable/cf_icon_60"
+            android:visibility="visible"/>
+        <Button
+            android:id="@+id/shopping_cart_add"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/gift_cart_tile_image"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/background_green_rect"
+            android:text="@string/add_to_cart"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+        <Button
+            android:id="@+id/gift_cart_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/shopping_cart_add"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_yellow_rect"
+            android:text="@string/birthdate_cancel"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/color_green_primary"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/modal_top_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/cf_icon_60"/>
+
+
+</RelativeLayout>

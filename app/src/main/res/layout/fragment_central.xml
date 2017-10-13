@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/main_header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:background="@color/colorMainRed">
+
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/countryfairlogowhite" />
+
+
+                <ImageView
+                    android:id="@+id/ivLoyalty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_toLeftOf="@+id/ivStoreLocator"
+                    android:adjustViewBounds="true"
+                    android:padding="10dp"
+                    android:src="@drawable/loyaltystarswhite" />
+
+                <ImageView
+                    android:id="@+id/ivStoreLocator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:adjustViewBounds="true"
+                    android:padding="10dp"
+                    android:src="@drawable/storelocatorwhite" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_header_layout"
+                android:text="Tell us how we\'re doing!"
+                android:background="@drawable/background_transred_rectnormal"
+                android:gravity="center"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorMainRed"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp" />
+
+            <WebView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/webview"
+                android:scrollbarStyle="insideOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tvFeedback"
+
+                />
+        </RelativeLayout>
+    </FrameLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        app:backgroundTint="#018ac1"
+        app:fabSize="normal"
+        app:useCompatPadding="true"
+        android:src="@drawable/ic_scan"/>
+
+</RelativeLayout>

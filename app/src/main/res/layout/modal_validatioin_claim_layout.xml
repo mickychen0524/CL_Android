@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/validation_claim_modal_image"/>
+
+    <TextView
+        android:id="@+id/modal_title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Done!"
+        android:layout_below="@+id/validation_claim_modal_image"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:id="@+id/validation_claim_number_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="28sp"
+        android:text="12345-7865"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/modal_title_text"/>
+
+    <TextView
+        android:id="@+id/validation_claim_description_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        android:text="We have saved this card to your photos folder. The code is your cash value so please redeem it now."
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/validation_claim_number_text"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/android_wallet"
+        android:id="@+id/android_wallet_img"
+        android:layout_below="@+id/validation_claim_description_text"/>
+    <Button
+        android:id="@+id/validation_claim_modal_ok_btn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Ok"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/background_green_rect"
+        android:layout_below="@+id/android_wallet_img" />
+</RelativeLayout>

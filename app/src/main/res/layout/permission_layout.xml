@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_blue_light">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorMainRed"
+        android:id="@+id/main_header_layout">
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/countryfairlogowhite" />
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_header_layout"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/permission_description_txt"
+                android:padding="15dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="We need you to help us enable some of your phone’s features in order to use this app, otherwise it may not work properly."/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:id="@+id/permission_camera_layout"
+                android:layout_below="@+id/permission_description_txt"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="130dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/alert1"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="You will see this message when clicking the button below. Choose OK."/>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/permission_camera_btn"
+                android:background="@color/color_blue_light"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/color_grey_dark"
+                android:text="Can we use your Camera?"
+                android:textAllCaps="false"
+                android:layout_below="@+id/permission_camera_layout" />
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/permission_camera_state_img"
+                android:layout_alignBottom="@id/permission_camera_btn"
+                android:background="@drawable/checkmark_green" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:id="@+id/permission_location_layout"
+                android:layout_below="@+id/permission_camera_btn"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="130dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/alert2"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="You will see this message when clicking the button below. Choose OK."/>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/permission_location_btn"
+                android:background="@color/color_blue_light"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/color_grey_dark"
+                android:text="Can we know where you are?"
+                android:textAllCaps="false"
+                android:layout_below="@+id/permission_location_layout"/>
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/permission_location_state_img"
+                android:layout_alignBottom="@id/permission_location_btn"
+                android:background="@drawable/checkmark_green" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:id="@+id/permission_notification_layout"
+                android:layout_below="@+id/permission_location_btn"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="130dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/alert3"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="You will see this message when clicking the button below. Choose OK."/>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/permission_notification_btn"
+                android:background="@color/color_blue_light"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/color_grey_dark"
+                android:text="Can we save photos?"
+                android:textAllCaps="false"
+                android:layout_below="@+id/permission_notification_layout"/>
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/permission_notificatioin_state_img"
+                android:layout_alignBottom="@id/permission_notification_btn"
+                android:background="@drawable/checkmark_green" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:id="@+id/permission_phonestate_layout"
+                android:layout_below="@+id/permission_notification_btn"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="130dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/alert4"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="You will see this message when clicking the button below. Choose OK."/>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/permission_phonestate_btn"
+                android:background="@color/color_blue_light"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/color_grey_dark"
+                android:text="Can we know your phone state?"
+                android:textAllCaps="false"
+                android:layout_below="@+id/permission_phonestate_layout"/>
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/permission_phone_state_img"
+                android:layout_alignBottom="@id/permission_phonestate_btn"
+                android:background="@drawable/checkmark_green" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

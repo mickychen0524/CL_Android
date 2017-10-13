@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:padding="15dp"
+>
+
+    <TextView android:id="@+id/tvName" android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:lines="1"
+              android:text="Fountain Drink"
+              android:textColor="#FFFFFF"
+              android:ellipsize="end"
+              android:gravity="center_vertical"
+              android:textSize="20sp"
+              android:layout_toLeftOf="@+id/rbPendingPoints"
+    />
+
+    <RatingBar android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/rbPendingPoints"
+               android:numStars="5"
+               android:rating="3"
+               android:stepSize="0.5"
+               android:isIndicator="true"
+               android:scaleX="0.75"
+               android:scaleY="0.75"
+               android:padding="0dp"
+               android:layout_toLeftOf="@+id/tvLifetimePoints"
+    />
+
+
+    <TextView android:id="@+id/tvLifetimePoints" android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentRight="true"
+              android:ems="3"
+              android:lines="1"
+              android:text="112"
+              android:textColor="#FFFFFF"
+              android:textSize="12sp"
+    />
+
+
+</RelativeLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#FFFFFF"
+              android:orientation="vertical"
+>
+
+    <include
+    layout="@layout/focusgrabber"
+    />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/main_header_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:background="@color/colorMainRed">
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/countryfairlogowhite"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:text="Stores"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlSearchPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_header_layout"
+            android:background="@color/colorMainRed"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/etSearchBox"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_toLeftOf="@+id/ivType"
+                android:background="@drawable/background_white_rect"
+                android:gravity="center"
+                android:hint="Search"
+                android:imeOptions="actionDone"
+                android:lines="1"
+                android:inputType="text"
+                android:textSize="18sp"
+            />
+
+            <ImageView android:id="@+id/ivType" android:layout_width="35dp"
+                       android:layout_height="35dp"
+                       android:layout_alignParentRight="true"
+                       android:adjustViewBounds="true"
+                       android:layout_centerVertical="true"
+                       android:padding="5dp"
+                       android:tag="list"
+                       android:layout_marginLeft="10dp"
+                       android:layout_marginRight="10dp"
+                       android:src="@drawable/storelocatorwhite"
+            />
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvStores"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rlSearchPanel"
+            android:background="#FFFFFF"
+        >
+
+        </android.support.v7.widget.RecyclerView>
+
+        <fragment
+                  android:id="@+id/map"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_below="@id/rlSearchPanel"
+                  android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    </RelativeLayout>
+
+</LinearLayout>

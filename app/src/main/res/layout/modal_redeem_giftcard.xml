@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modal_top_image"
+        android:layout_marginTop="-40dp"
+        android:background="@drawable/background_white_rect"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="40dp">
+
+        <ImageView
+            android:id="@+id/ivTile"
+            android:layout_width="163dp"
+            android:layout_height="133dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"/>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center_horizontal"
+                      android:orientation="horizontal"
+                      android:layout_marginBottom="30dp"
+        >
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="Balance :"
+                      android:textSize="18sp"
+            />
+
+            <TextView android:id="@+id/tvAmount" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="18sp"
+                      android:textStyle="bold"
+                      tools:text="$200.00"
+            />
+
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/etAmount"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:inputType="numberDecimal"
+            android:background="@drawable/background_blackborder_rect"
+            android:gravity="center"
+            android:hint="Enter Amount to Redeem"
+            android:textSize="18sp"
+        />
+
+
+        <Button
+            android:id="@+id/btnRedeem"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_red_rect"
+            android:gravity="center"
+            android:text="Redeem"
+            android:textAllCaps="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:textStyle="bold"
+        />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_green_rect"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:textStyle="bold"
+        />
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/modal_top_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/cf_icon_60"/>
+
+</RelativeLayout>

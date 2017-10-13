@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:weightSum="1">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorMainRed">
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/countryfairlogowhite" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:text="Refund"
+            android:textColor="#eee"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:src="@drawable/helpquestionmark"
+            android:tint="@color/colorWhite"
+            android:background="@color/colorMainRed"
+            android:id="@+id/ticket_refund_help"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:onClick="viewHelpOverlay"
+            android:layout_toLeftOf="@+id/ticket_refund_done_btn"/>
+
+        <Button
+            android:id="@+id/ticket_refund_done_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorMainRed"
+            android:textColor="#eee"
+            android:textAllCaps="false"
+            android:text="Done"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:onClick="back"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <ListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ticket_refund_list_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

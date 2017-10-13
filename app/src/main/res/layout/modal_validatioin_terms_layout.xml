@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/validation_terms_modal_image"/>
+
+    <TextView
+        android:id="@+id/modal_title_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:text="Agree To Terms:"
+        android:layout_below="@+id/validation_terms_modal_image"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:id="@+id/validation_terms_modal_text"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
+        android:scrollbars = "vertical"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/background_white_rect"
+        android:textSize="16sp"
+        android:text="terms string from text"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/modal_title_text"/>
+
+    <Button
+        android:id="@+id/validation_terms_modal_ok_btn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Ok"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/background_green_rect"
+        android:layout_below="@+id/validation_terms_modal_text" />
+    <Button
+        android:id="@+id/validation_terms_modal_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Nope"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="@color/color_green_primary"
+        android:background="@drawable/background_yellow_rect"
+        android:layout_below="@+id/validation_terms_modal_ok_btn" />
+</RelativeLayout>

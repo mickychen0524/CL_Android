@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<com.daimajia.swipe.SwipeLayout
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shopping_cart_list_item_swipe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:tag="Bottom3"
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/delete_all"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textAllCaps="false"
+            android:text="Delete All"
+            android:background="@color/color_orange_primary"
+            android:textColor="@color/colorWhite" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textAllCaps="false"
+            android:text="Delete"
+            android:background="@color/colorGrey"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/shopping_cart_list_tile_image"
+            android:layout_width="103dp"
+            android:layout_height="133dp"
+            android:src="@drawable/channeltilehdsample"/>
+        <ImageView
+            android:id="@+id/shopping_cart_list_gamelogo_image"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:src="@drawable/vacash5logo"
+            android:layout_toRightOf="@id/shopping_cart_list_tile_image"
+            android:layout_toEndOf="@id/shopping_cart_list_tile_image"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shopping_cart_list_playnumber_txt"
+            android:textColor="@color/colorWhite"
+            android:text="1"
+            android:textStyle="bold"
+            android:textSize="42sp"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@id/shopping_cart_list_tile_image"
+            android:layout_toEndOf="@id/shopping_cart_list_tile_image"
+            android:layout_below="@id/shopping_cart_list_gamelogo_image" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:text="plays"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/shopping_cart_list_playnumber_txt"
+            android:layout_toEndOf="@id/shopping_cart_list_playnumber_txt"
+            android:layout_below="@id/shopping_cart_list_gamelogo_image" />
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:id="@+id/shopping_cart_list_plus_btn"
+            android:textColor="@color/color_orange_primary"
+            android:background="@color/colorPrimary"
+            android:text="+"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:textSize="22sp"
+            android:layout_toRightOf="@id/shopping_cart_list_tile_image"
+            android:layout_toEndOf="@id/shopping_cart_list_tile_image"
+            android:layout_below="@id/shopping_cart_list_playnumber_txt" />
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:id="@+id/shopping_cart_list_minus_btn"
+            android:textColor="@color/color_orange_primary"
+            android:background="@color/colorPrimary"
+            android:text="-"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/shopping_cart_list_plus_btn"
+            android:layout_toEndOf="@id/shopping_cart_list_plus_btn"
+            android:layout_below="@id/shopping_cart_list_playnumber_txt" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shopping_cart_list_subtotalprice_txt"
+            android:textColor="@color/colorWhite"
+            android:text="$0.00"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/shopping_cart_list_minus_btn"
+            android:layout_toEndOf="@id/shopping_cart_list_minus_btn"
+            android:layout_below="@id/shopping_cart_list_playnumber_txt" />
+    </RelativeLayout>
+</com.daimajia.swipe.SwipeLayout>

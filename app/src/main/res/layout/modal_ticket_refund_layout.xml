@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/modal_top_image"
+        android:layout_marginTop="-40dp"
+        android:background="@drawable/background_white_rect">
+        <TextView
+            android:id="@+id/modal_title_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#111"
+            android:gravity="center"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:text="Refund ID"
+            android:layout_alignParentStart="true"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:id="@+id/ticket_refund_qrcode_img"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/qr"
+            android:layout_below="@+id/modal_title_text"/>
+        <TextView
+            android:id="@+id/modal_main_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#111"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:text="OK, show this code to your cashier"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ticket_refund_qrcode_img"/>
+
+        <Button
+            android:id="@+id/ticket_refund_ok_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Ok"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/background_green_rect"
+            android:layout_below="@+id/modal_main_text" />
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/modal_top_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/cf_icon_60"/>
+
+</RelativeLayout>

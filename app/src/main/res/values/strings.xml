@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">CountryFair</string>
+
+    <string name="header_name">Lazlo Play</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_overview_1st_item_text">Tutorial page 1</string>
+    <string name="app_overview_2nd_item_text">Tutorial page 2</string>
+    <string name="app_overview_3rd_item_text">Tutorial page 3</string>
+    <string name="app_overview_4th_item_text">Tutorial page 4</string>
+    <string name="Start">Start</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="start_state">Start_state</string>
+    <string name="pause_state">Pause_state</string>
+    <string name="beacon_setting">BEACON&amp;CHIRP STATUS</string>
+    <string name="setting_guid_string">Updating the Server Base URL and Authority License Code currently requires you to kill and restart the app for things to work correctly.</string>
+    <string name="token">QES4P5W49VJRKVX2B38ZUD9REF95MQ6557KPS49QTGGZUWCXDNKLX1EUYPFPLBZ5LJE1AJAFX6GA3S4VXNNTX6GUZNNTXA2FE6NER6DFC6NRRTDFEX6FRBDURNUWR7A</string>
+    <string name="base_url">http://services.development2.32point6.com/</string>
+    <string name="maps_api_key">AIzaSyA5tuIHlNyMCaSzI1IUO_J5_DjSTQfYg10</string>
+
+    <string name="chirp_app_key">SouPgliNw3qNWere8njxWFWsh</string>
+    <string name="chirp_app_secret">lNUDzKpfmkNvRSHp7M2UBpVnhH9ljoyzZi4eyThDdb8Ra0Oq2v</string>
+
+    <string name="insert_birth_date_title">Insert Birth Date</string>
+    <string name="insert_birth_date_body">I certify that I am the age I have indicated below</string>
+    <string name="birthdate_certify">Certify Age</string>
+    <string name="birthdate_cancel">Cancel</string>
+    <string name="birthdate_choose">Please choose birthdate</string>
+
+    <string name="selfie_title">Choose selfie</string>
+    <string name="selfie_body">Would you like to take a selfie to put on your ticket?</string>
+    <string name="selfie_button_take">Take Selfie</string>
+    <string name="selfie_button_nothanks">No Thanks</string>
+
+    <string name="social_connection_image_str">We have downloaded this image to you Photos folder... \n \n Share online to earn FREE tickets and rewards!</string>
+    <string name="mainview_help_str">Help Overlay MainView Cart</string>
+    <string name="shoppingcart_help_str">Help Overlay Shopping Cart</string>
+    <string name="ticketrefund_help_str">Help Overlay Ticket Refund Cart</string>
+    <string name="done">Done</string>
+
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="checkout_dialog_description">OK, Show this code to your cashier to complete Checkout</string>
+    <string name="checkout_generating_description">OK, We\'ve recorded your transaction and are creating your Ticket(s)!</string>
+
+
+    <string name="from_to_values">From %1$s to %2$s</string>
+    <string name="count_miles">%.1f Miles</string>
+
+
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This feature will not work without access to camera.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="barcode_header">Click &quot;Read Barcode&quot; to read a barcode</string>
+    <string name="read_barcode">Read Barcode</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Use Flash</string>
+    <string name="barcode_success">Barcode read successfully</string>
+    <string name="barcode_failure">No barcode captured</string>
+    <string name="barcode_error">"Error reading barcode: %1$s"</string>
+    <string name="beacon_discovered">Beacon Discovered!</string>
+    <string name="beacons_list_empty">Beacons list is empty</string>
+    <string name="title_error">Ooops!</string>
+    <string name="msg_receipt_sdk_not_initialized">Receipt recognition SDK not initialized!</string>
+    <string name="not_yet_implemented">Not yet implemented!</string>
+    <string name="title_no_connection">No connection</string>
+    <string name="msg_no_connection">No available internet connection</string>
+
+
+</resources>

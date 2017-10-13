@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.countryfair.player.playlazlo.com.countryfair.swipeviewer.VerticalPager
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main_vertical_pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <fragment
+        android:id="@+id/main_top_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="dev.countryfair.player.playlazlo.com.countryfair.fragment.TopFragment" />
+
+    <fragment
+        android:id="@+id/main_central_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="dev.countryfair.player.playlazlo.com.countryfair.fragment.CentralCompositeFragment" />
+
+</dev.countryfair.player.playlazlo.com.countryfair.swipeviewer.VerticalPager>
