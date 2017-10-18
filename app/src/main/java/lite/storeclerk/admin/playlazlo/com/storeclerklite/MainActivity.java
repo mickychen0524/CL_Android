@@ -13,6 +13,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.security.keystore.KeyProperties;
@@ -47,6 +48,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -63,8 +65,13 @@ import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.Constants;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.GeoLocationUtil;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.service.GettingRetailerListService;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.service.ServiceResultReceiver;
+import project.labs.avviotech.com.chatsdk.nearby.NearByUtil;
+import project.labs.avviotech.com.chatsdk.net.model.DeviceModel;
+import project.labs.avviotech.com.chatsdk.net.protocol.NearByProtocol;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NearByProtocol.DiscoveryProtocol{
+
+    private NearByUtil nearby;
     private int APP_REQUEST_CODE = 99;
     private ProgressDialog mProgressDialog;
     private JSONObject receivedObj;
@@ -77,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private Button claimBottomBtn;
     private Button refundBottomBtn;
     private Button activateBtn;
+    private Button callBtn;
     private SwipeRefreshLayout swipeContainer;
 
     /* put this into your activity class */
@@ -136,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         checkoutBottomBtn = (Button) findViewById(R.id.main_bottom_checkout_btn);
         claimBottomBtn = (Button) findViewById(R.id.main_bottom_claim_btn);
         refundBottomBtn = (Button) findViewById(R.id.main_bottom_refund_btn);
+        callBtn = (Button) findViewById(R.id.main_bottom_chat_btn);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
@@ -201,6 +210,8 @@ public class MainActivity extends AppCompatActivity {
 //                }
             }
         });
+
+        init();
 
         claimBottomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -662,5 +673,34 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onPeersFound(HashMap<String, DeviceModel> devices) {
+
+    }
+
+    @Override
+    public void onDisconnect() {
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        nearby.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        nearby.stop();
+    }
+
+    public void init()
+    {
+        nearby = NearByUtil.getInstance();
+        nearby.init(this, Build.MANUFACTURER,"clerk");
+        nearby.delegate = this;
     }
 }
