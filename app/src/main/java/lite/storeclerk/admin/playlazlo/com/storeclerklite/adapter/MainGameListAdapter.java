@@ -54,7 +54,7 @@ public class MainGameListAdapter extends ArrayAdapter<JSONObject> {
                     maxPrizeObj = prizeItem;
                 }
             }
-            txtPrice.setText("$" + String.valueOf(maxPrice));
+            txtPrice.setText(String.format("$%.2f", maxPrice));
             txtGameDate.setText("3/25/2017");
 
             new Thread(new Runnable() {

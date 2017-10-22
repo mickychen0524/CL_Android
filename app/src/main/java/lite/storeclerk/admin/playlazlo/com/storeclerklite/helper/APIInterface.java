@@ -1,5 +1,6 @@
 package lite.storeclerk.admin.playlazlo.com.storeclerklite.helper;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -111,6 +112,10 @@ public class APIInterface {
         return new AdvancedHTTPClient().httpPostMethod(Constants.URL_CART_REFUND, postParams.toString());
     }
 
+    public static JSONObject activateUser(String userLicenseCode) throws Exception {
+        return new AdvancedHTTPClient().httpPutMethodWithUserLicenseCode(Constants.URL_ACTIVATE_USER, userLicenseCode);
+    }
+
     public static JSONObject registerUser(String photoIdCode,String firstName,String lastName,String email,String phone,String userAccessToken,String uuid) throws Exception{
         JSONObject postParams = new JSONObject();
         JSONObject midParams = new JSONObject();
@@ -187,4 +192,11 @@ public class APIInterface {
         return new AdvancedHTTPClient().httpPutMethod(Constants.URL_REGISTER_PUSH_NOTIFICATION,postParams.toString());
     }
 
+    public static JSONObject getInactiveUsers() throws Exception {
+        return new AdvancedHTTPClient().httpGetMethod(Constants.URL_GET_INACTIVE_USERS);
+    }
+
+    public static JSONObject getConfiguration(Context context) throws Exception {
+        return new AdvancedHTTPClient().httpGetMethod(context, Constants.URL_HOCKEY_APP_ID);
+    }
 }

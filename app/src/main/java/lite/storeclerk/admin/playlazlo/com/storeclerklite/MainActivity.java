@@ -13,14 +13,13 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.location.Location;
-import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.security.keystore.KeyProperties;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -28,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.facebook.accountkit.AccountKit;
 import com.facebook.accountkit.AccountKitLoginResult;
 import com.facebook.accountkit.ui.AccountKitActivity;
@@ -37,9 +37,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.microsoft.windowsazure.notifications.NotificationsManager;
 
+import net.hockeyapp.android.FeedbackManager;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
@@ -48,12 +51,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+
 import cn.refactor.lib.colordialog.PromptDialog;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.adapter.MainGameListAdapter;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.azuregcm.MyHandler;
@@ -65,13 +69,8 @@ import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.Constants;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.GeoLocationUtil;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.service.GettingRetailerListService;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.service.ServiceResultReceiver;
-import project.labs.avviotech.com.chatsdk.nearby.NearByUtil;
-import project.labs.avviotech.com.chatsdk.net.model.DeviceModel;
-import project.labs.avviotech.com.chatsdk.net.protocol.NearByProtocol;
 
-public class MainActivity extends AppCompatActivity implements NearByProtocol.DiscoveryProtocol{
-
-    private NearByUtil nearby;
+public class MainActivity extends AppCompatActivity {
     private int APP_REQUEST_CODE = 99;
     private ProgressDialog mProgressDialog;
     private JSONObject receivedObj;
@@ -84,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
     private Button claimBottomBtn;
     private Button refundBottomBtn;
     private Button activateBtn;
-    private Button callBtn;
     private SwipeRefreshLayout swipeContainer;
 
     /* put this into your activity class */
@@ -116,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         NotificationsManager.handleNotifications(this, NotificationSettings.SenderId, MyHandler.class);
         registerWithNotificationHubs();
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
         GeoLocationUtil geoLocationUtil = new GeoLocationUtil();
         GeoLocationUtil.LocationResult geoLocationResult = new GeoLocationUtil.LocationResult() {
             @Override
@@ -133,6 +130,12 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         if(!geoLocationUtil.getLocation(MainActivity.this,geoLocationResult)){
             Toast.makeText(MainActivity.this, "Geo service is not working", Toast.LENGTH_SHORT).show();
         }
+        try {
+            FeedbackManager.register(MainActivity.this, Constants.HOCKEY_APP_ID);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this.getApplicationContext(), "Hockey App ID seems invalid!", Toast.LENGTH_SHORT).show();
+        }
 
         gameListView = (ListView) findViewById(R.id.main_view_list);
         mAdapter = new MainGameListAdapter(MainActivity.this, gameData);
@@ -144,7 +147,6 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         checkoutBottomBtn = (Button) findViewById(R.id.main_bottom_checkout_btn);
         claimBottomBtn = (Button) findViewById(R.id.main_bottom_claim_btn);
         refundBottomBtn = (Button) findViewById(R.id.main_bottom_refund_btn);
-        callBtn = (Button) findViewById(R.id.main_bottom_chat_btn);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
@@ -211,8 +213,6 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
             }
         });
 
-        init();
-
         claimBottomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -241,53 +241,40 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
             @Override
             public void onClick(View view) {
                 SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
-                if (!sharedPref.getBoolean("loginState", false)) {
-                    final Intent intent = new Intent(MainActivity.this, AccountKitActivity.class);
-                    AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
-                            new AccountKitConfiguration.AccountKitConfigurationBuilder(
-                                    LoginType.PHONE,
-                                    AccountKitActivity.ResponseType.CODE); // or .ResponseType.TOKEN
-                    // ... perform additional configuration ...
-                    intent.putExtra(
-                            AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,
-                            configurationBuilder.build());
-                    startActivityForResult(intent, APP_REQUEST_CODE);
+                if (sharedPref.getBoolean("registerState", false)) {
+                    if (sharedPref.getBoolean("activateState", false)) {
+                        if (sharedPref.getBoolean("loginState", false)) {
+                            AccountKit.logOut();
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putBoolean("loginState", false);
+                            editor.apply();
+                            initStates();
+                        } else {
+                            Intent intent = new Intent(MainActivity.this, AccountKitActivity.class);
+                            AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder = new AccountKitConfiguration.AccountKitConfigurationBuilder(LoginType.PHONE,
+                                    AccountKitActivity.ResponseType.CODE);
+                            intent.putExtra(AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION, configurationBuilder.build());
+                            startActivityForResult(intent, APP_REQUEST_CODE);
+                        }
+                    }
                 } else {
-                    AccountKit.logOut();
-                    checkoutBottomBtn.setVisibility(View.GONE);
-                    claimBottomBtn.setVisibility(View.GONE);
-                    reportBottomBtn.setVisibility(View.GONE);
-                    refundBottomBtn.setVisibility(View.GONE);
-                    registerBtn.setText("Register");
+                    if (sharedPref.getBoolean("loginState", false)) {
+                        Intent i = new Intent(MainActivity.this, RegisterActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, AccountKitActivity.class);
+                        AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder = new AccountKitConfiguration.AccountKitConfigurationBuilder(LoginType.PHONE,
+                                AccountKitActivity.ResponseType.CODE);
+                        intent.putExtra(AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION, configurationBuilder.build());
+                        startActivityForResult(intent, APP_REQUEST_CODE);
+                    }
                 }
             }
         });
 
-        if (!sharedPref.getBoolean("loginState", false) || !sharedPref.getBoolean("activateState", false)) {
-            checkoutBottomBtn.setVisibility(View.GONE);
-            claimBottomBtn.setVisibility(View.GONE);
-            reportBottomBtn.setVisibility(View.GONE);
-            refundBottomBtn.setVisibility(View.GONE);
-            activateBtn.setVisibility(View.GONE);
-        } else {
-            checkoutBottomBtn.setVisibility(View.VISIBLE);
-            claimBottomBtn.setVisibility(View.VISIBLE);
-            reportBottomBtn.setVisibility(View.VISIBLE);
-            refundBottomBtn.setVisibility(View.VISIBLE);
-            activateBtn.setVisibility(View.VISIBLE);
-        }
+        initStates();
 
-        if (!sharedPref.getBoolean("loginState", false)) {
-            registerBtn.setText("Register");
-        } else {
-            registerBtn.setText("Sign out");
-        }
-
-        if (!sharedPref.getBoolean("activateState", false)) {
-            activateBtn.setVisibility(View.VISIBLE);
-        } else {
-            activateBtn.setVisibility(View.GONE);
-        }
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.main_refresh_view);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -303,6 +290,48 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         setupGeoAndRetailerService();
         getAllGameList();
 
+    }
+
+    private void initStates() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
+        if (sharedPref.getBoolean("activateState", false)) {
+            activateBtn.setVisibility(View.GONE);
+            registerBtn.setVisibility(View.VISIBLE);
+            if (sharedPref.getBoolean("loginState", false) && sharedPref.getBoolean("registerState", false)) {
+                registerBtn.setText("Sign Out");
+            } else {
+                if (sharedPref.getBoolean("registerState", false)) {
+                    registerBtn.setText("Sign In");
+                } else {
+                    registerBtn.setText("Register");
+                }
+            }
+        } else {
+            if (sharedPref.getBoolean("loginState", false) && sharedPref.getBoolean("registerState", false)) {
+                activateBtn.setVisibility(View.VISIBLE);
+                registerBtn.setVisibility(View.GONE);
+            } else {
+                activateBtn.setVisibility(View.GONE);
+                registerBtn.setVisibility(View.VISIBLE);
+            }
+            if (sharedPref.getBoolean("registerState", false)) {
+                registerBtn.setText("Sign In");
+            } else {
+                registerBtn.setText("Register");
+            }
+        }
+
+        if (sharedPref.getBoolean("activateState", false) && sharedPref.getBoolean("loginState", false) && sharedPref.getBoolean("registerState", false)) {
+            checkoutBottomBtn.setVisibility(View.VISIBLE);
+            claimBottomBtn.setVisibility(View.VISIBLE);
+            reportBottomBtn.setVisibility(View.VISIBLE);
+            refundBottomBtn.setVisibility(View.VISIBLE);
+        } else {
+            checkoutBottomBtn.setVisibility(View.GONE);
+            claimBottomBtn.setVisibility(View.GONE);
+            reportBottomBtn.setVisibility(View.GONE);
+            refundBottomBtn.setVisibility(View.GONE);
+        }
     }
 
     //Create a new method that we’ll use to initialize our cipher//
@@ -365,32 +394,37 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
     }
 
     private void setupServiceReceiver() {
-        mReceiverForRetailer = new ServiceResultReceiver(new Handler());
-        // This is where we specify what happens when data is received from the service
-        mReceiverForRetailer.setReceiver(new ServiceResultReceiver.Receiver() {
+        runOnUiThread(new Runnable() {
             @Override
-            public void onReceiveResult(int resultCode, Bundle resultData) {
-                if (resultCode == RESULT_OK) {
+            public void run() {
+                mReceiverForRetailer = new ServiceResultReceiver(new Handler());
+                // This is where we specify what happens when data is received from the service
+                mReceiverForRetailer.setReceiver(new ServiceResultReceiver.Receiver() {
+                    @Override
+                    public void onReceiveResult(int resultCode, Bundle resultData) {
+                        if (resultCode == RESULT_OK) {
 
-                    switch(resultData.getInt("resultStatus")) {
-                        case 1:
-                            String retailerAddress = resultData.getString("retailerAddress");
-                            NotificationCompat.Builder mBuilder =
-                                    new NotificationCompat.Builder(MainActivity.this)
-                                            .setSmallIcon(R.mipmap.ic_launcher)
-                                            .setContentTitle("Store Clerk Lite")
-                                            .setContentText("Play now at " + retailerAddress);
-                            Toast.makeText(MainActivity.this, "Play now at " + retailerAddress, Toast.LENGTH_SHORT).show();
-                            Log.d("address", retailerAddress);
-                            break;
-                        case 2:
-                            Toast.makeText(MainActivity.this, "retailer getting failed", Toast.LENGTH_SHORT).show();
+                            switch(resultData.getInt("resultStatus")) {
+                                case 1:
+                                    String retailerAddress = resultData.getString("retailerAddress");
+                                    NotificationCompat.Builder mBuilder =
+                                            new NotificationCompat.Builder(MainActivity.this)
+                                                    .setSmallIcon(R.mipmap.ic_launcher)
+                                                    .setContentTitle("Store Clerk Lite")
+                                                    .setContentText("Play now at " + retailerAddress);
+                                    Toast.makeText(MainActivity.this, "Play now at " + retailerAddress, Toast.LENGTH_SHORT).show();
+                                    Log.d("address", retailerAddress);
+                                    break;
+                                case 2:
+                                    Toast.makeText(MainActivity.this, "retailer getting failed", Toast.LENGTH_SHORT).show();
 
-                            break;
-                        case 33:
-                            break;
+                                    break;
+                                case 33:
+                                    break;
+                            }
+                        }
                     }
-                }
+                });
             }
         });
     }
@@ -473,10 +507,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         }).start();
     }
     @Override
-    protected void onActivityResult(
-            final int requestCode,
-            final int resultCode,
-            final Intent data) {
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == APP_REQUEST_CODE) { // confirm that this response matches your request
             AccountKitLoginResult loginResult = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
@@ -488,11 +519,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
             } else {
                 this.verifyFBAuthCode(loginResult.getAuthorizationCode());
             }
-            Toast.makeText(
-                    this,
-                    toastMessage,
-                    Toast.LENGTH_LONG)
-                    .show();
+            Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -517,6 +544,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
                             }
 
                             if (receivedObj != null) {
+                                Log.i("DevoloTest", "receivedObj:" + receivedObj);
 
                                 try {
                                     String token = receivedObj.getString("data");
@@ -525,14 +553,17 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
                                     editor.putBoolean("loginState", true);
                                     editor.putString("fbAuthenticationCode",authCode);
                                     editor.putString("fbAccessToken",token);
+//                                    editor.putString("hockeyAppIdAndroid", )
                                     editor.apply();
 
-                                    registerBtn.setText("Signout");
 
+                                    if (!sharedPref.getBoolean("registerState", false)) {
+                                        Intent i = new Intent(MainActivity.this, RegisterActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    }
 
-                                    Intent i = new Intent(MainActivity.this, RegisterActivity.class);
-                                    startActivity(i);
-                                    finish();
+                                    initStates();
 
                                 } catch (JSONException e) {
                                     Log.d("json_e-->", e.getMessage());
@@ -584,7 +615,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
 
     public void clerkImageBtnAction(View v) {
         // createInsertLicenseCodeDlg()
-        Intent i = new Intent(MainActivity.this, ActivateActivity.class);
+        Intent i = new Intent(MainActivity.this, InactiveUsersActivity.class);
         startActivity(i);
         finish();
     }
@@ -673,34 +704,5 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void onPeersFound(HashMap<String, DeviceModel> devices) {
-
-    }
-
-    @Override
-    public void onDisconnect() {
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        nearby.start();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        nearby.stop();
-    }
-
-    public void init()
-    {
-        nearby = NearByUtil.getInstance();
-        nearby.init(this, Build.MANUFACTURER,"clerk");
-        nearby.delegate = this;
     }
 }

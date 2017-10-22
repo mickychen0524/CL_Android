@@ -12,7 +12,9 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,9 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
+import cn.refactor.lib.colordialog.PromptDialog;
+import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.APIInterface;
+import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.AndroidUtilities;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.Constants;
 
 /**
@@ -87,22 +92,55 @@ public class ActivateActivity extends AppCompatActivity implements QRCodeReaderV
         return true;
     }
     @Override
-    public void onQRCodeRead(String text, PointF[] points) {
+    public void onQRCodeRead(final String text, PointF[] points) {
         // show the scanner result into dialog box.
 
         if (!b_alertStateFlg) {
             b_alertStateFlg = true;
             if (text.length() > 120) {
-                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ActivateActivity.this.getApplicationContext());
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("playerToken",text);
-                Constants.PLAYER_TOKEN = text;
-                editor.putBoolean("activateState", true);
-                editor.apply();
+                final ProgressDialog pd = new ProgressDialog(this);
+                pd.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                pd.setMessage("Activating...");
+                pd.show();
+                pd.setCancelable(false);
+                pd.setCanceledOnTouchOutside(false);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            APIInterface.activateUser(text);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ActivateActivity.this.getApplicationContext());
+                                    SharedPreferences.Editor editor = sharedPref.edit();
+                                    editor.putString("playerToken",text);
+                                    Constants.PLAYER_TOKEN = text;
+                                    editor.putBoolean("activateState", true);
+                                    editor.apply();
 
-                Intent i = new Intent(ActivateActivity.this, MainActivity.class);
-                startActivity(i);
-                finish();
+                                    Intent i = new Intent(ActivateActivity.this, MainActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            });
+                        } catch (final Exception e) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    b_alertStateFlg = false;
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Scan Result Error : " + text, Toast.LENGTH_SHORT);
+                                    toast.show();
+
+                                    Vibrator v = (Vibrator) ActivateActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+                                    // Vibrate for 500 milliseconds
+                                    v.vibrate(500);
+                                }
+                            });
+                        }
+                    }
+                }).start();
+
 
             } else {
                 b_alertStateFlg = false;

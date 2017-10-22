@@ -15,6 +15,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -250,6 +251,30 @@ public class RegisterActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     }).show();
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(txtEmail.getText().toString()).matches()) {
+            new PromptDialog(RegisterActivity.this)
+                    .setDialogType(PromptDialog.DIALOG_TYPE_WARNING)
+                    .setAnimationEnable(true)
+                    .setTitleText("Warning!")
+                    .setContentText("Please input valid email address.")
+                    .setPositiveListener("Ok", new PromptDialog.OnPositiveListener() {
+                        @Override
+                        public void onClick(PromptDialog dialog) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+        } else if (!Patterns.PHONE.matcher(txtPhone.getText().toString()).matches()) {
+            new PromptDialog(RegisterActivity.this)
+                    .setDialogType(PromptDialog.DIALOG_TYPE_WARNING)
+                    .setAnimationEnable(true)
+                    .setTitleText("Warning!")
+                    .setContentText("Please input valid phone number.")
+                    .setPositiveListener("Ok", new PromptDialog.OnPositiveListener() {
+                        @Override
+                        public void onClick(PromptDialog dialog) {
+                            dialog.dismiss();
+                        }
+                    }).show();
         } else {
             registerUser();
         }
@@ -280,6 +305,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 try {
                                     JSONObject jsonData = receivedObj.getJSONObject("data");
+                                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(RegisterActivity.this.getApplicationContext());
+                                    SharedPreferences.Editor editor = sharedPref.edit();
+                                    editor.putBoolean("registerState", true);
+                                    editor.apply();
                                     Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                                     startActivity(i);
                                     finish();

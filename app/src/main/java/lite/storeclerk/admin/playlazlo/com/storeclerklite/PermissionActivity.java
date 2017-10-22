@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.Constants;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.SetInitialVarsOnLocal;
+import lite.storeclerk.admin.playlazlo.com.storeclerklite.service.ConfigService;
 
 /**
  * Created by mymac on 3/28/17.
@@ -70,6 +70,7 @@ public class PermissionActivity extends AppCompatActivity {
             editor.apply();
         }
         new Constants(PermissionActivity.this);
+        getConfiguration();
         gotoMainPage();
     }
 
@@ -200,5 +201,9 @@ public class PermissionActivity extends AppCompatActivity {
         Intent i = new Intent(PermissionActivity.this, MainActivity.class);
         startActivity(i);
         finish();
+    }
+
+    private void getConfiguration(){
+        startService(new Intent(PermissionActivity.this, ConfigService.class));
     }
 }

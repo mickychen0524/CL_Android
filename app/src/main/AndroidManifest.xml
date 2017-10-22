@@ -11,7 +11,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:remove="android:maxSdkVersion"/>
+
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -26,9 +28,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon,android:name">
-        <activity android:name=".PermissionActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        tools:replace="android:icon">
+        <activity android:name=".PermissionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -100,6 +101,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".InactiveUsersActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name="com.facebook.accountkit.ui.AccountKitActivity"
             android:theme="@style/AppLoginTheme"
             tools:replace="android:theme">
@@ -156,7 +161,10 @@
                 <category android:name="com.lazlo326.admin.storeclerk.dev" />
             </intent-filter>
         </receiver>
-
+        <service
+            android:name=".service.ConfigService"
+            android:enabled="true"
+            android:exported="true" />
 
 
     </application>

@@ -1,5 +1,6 @@
 package lite.storeclerk.admin.playlazlo.com.storeclerklite.helper;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -7,7 +8,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -22,6 +22,13 @@ public class AdvancedHTTPClient {
 
     private class HTTPGetWithHeader extends AsyncTask<String, Void, JSONObject> {
 
+//        public HTTPGetWithHeader() {
+//
+//        }
+//
+//        public HTTPGetWithHeader(Context context) {
+//
+//        }
         @Override
         protected JSONObject doInBackground(String... params) {
             HttpURLConnection conn = null;
@@ -149,55 +156,6 @@ public class AdvancedHTTPClient {
         }
     }
 
-    private class HTTPPutWithBody extends AsyncTask<String, Void, JSONObject> {
-
-        @Override
-        protected JSONObject doInBackground(String... params) {
-            HttpURLConnection conn = null;
-            BufferedReader br = null;
-            try {
-                URL url = new URL(Constants.SERVICE_URL + params[0]);
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000);
-                conn.setConnectTimeout(15000);
-                conn.setRequestMethod("PUT");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setRequestProperty("Lazlo-AuthorityLicenseCode", Constants.TOKEN);
-                conn.setRequestProperty("Lazlo-UserLicenseCode", Constants.PLAYER_TOKEN);
-
-                // Send post request
-                conn.setDoOutput(true);
-                conn.setDoInput(true);
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                writer.write(params[1]);
-                writer.flush();
-                writer.close();
-                os.close();
-
-                int responseCode = conn.getResponseCode();
-                if (responseCode != 200) {
-                    br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-                    String apiOutput = br.readLine();
-                    throw new Exception("invalid response code:" + responseCode);
-                }
-                br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String apiOutput = br.readLine();
-                JSONObject obj = new JSONObject();
-                return obj;
-            } catch (Exception e) {
-                return null;
-            } finally {
-                AppHelper.close(br);
-                if (conn != null) {
-                    conn.disconnect();
-                }
-            }
-        }
-    }
-
-
     private class HTTPPostWithBodyUsingAuthCode extends AsyncTask<String, Void, JSONObject> {
 
         @Override
@@ -250,6 +208,107 @@ public class AdvancedHTTPClient {
         }
     }
 
+    private class HTTPPutWithBody extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            HttpURLConnection conn = null;
+            BufferedReader br = null;
+            try {
+                URL url = new URL(Constants.SERVICE_URL + params[0]);
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("PUT");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Lazlo-AuthorityLicenseCode", Constants.TOKEN);
+                conn.setRequestProperty("Lazlo-UserLicenseCode", Constants.PLAYER_TOKEN);
+
+                // Send post request
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                writer.write(params[1]);
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode = conn.getResponseCode();
+                if (responseCode < 200 || responseCode >= 300) {
+                    br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                    String apiOutput = br.readLine();
+                    throw new Exception("invalid response code:" + responseCode);
+                }
+                br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String apiOutput = br.readLine();
+                JSONObject obj = new JSONObject();
+                return obj;
+            } catch (Exception e) {
+                return null;
+            } finally {
+                AppHelper.close(br);
+                if (conn != null) {
+                    conn.disconnect();
+                }
+            }
+        }
+    }
+
+    private class HTTPPutWithUserLicenseCode extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            HttpURLConnection conn = null;
+            BufferedReader br = null;
+            try {
+                URL url = new URL(Constants.SERVICE_URL + params[0]);
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("PUT");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Lazlo-AuthorityLicenseCode", Constants.TOKEN);
+                conn.setRequestProperty("Lazlo-UserLicenseCode", params[1]);
+                conn.setRequestProperty("Authorization", Constants.HEADER_AUTHORIZATION_VALUE_PREFIX + Constants.FB_AUTHONTICATION_CODE);
+
+                // Send post request
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                writer.write(params[1]);
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode = conn.getResponseCode();
+                if (responseCode < 200 || responseCode >= 300) {
+                    br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                    String apiOutput = br.readLine();
+                    throw new Exception("invalid response code:" + responseCode);
+                }
+                br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String apiOutput = br.readLine();
+                JSONObject obj = new JSONObject();
+                return obj;
+            } catch (Exception e) {
+                return null;
+            } finally {
+                AppHelper.close(br);
+                if (conn != null) {
+                    conn.disconnect();
+                }
+            }
+        }
+    }
+
+    public JSONObject httpGetMethod(Context context, String url) throws Exception {
+        return new HTTPGetWithHeader().execute(url).get();
+    }
+
     public JSONObject httpGetMethod(String url) throws Exception {
         return new HTTPGetWithHeader().execute(url).get();
     }
@@ -268,5 +327,9 @@ public class AdvancedHTTPClient {
 
     public JSONObject httpPutMethod(String url, String body) throws Exception {
         return new HTTPPutWithBody().execute(url, body).get();
+    }
+
+    public JSONObject httpPutMethodWithUserLicenseCode(String url, String userLicenseCode) throws Exception {
+        return new HTTPPutWithUserLicenseCode().execute(url, userLicenseCode).get();
     }
 }

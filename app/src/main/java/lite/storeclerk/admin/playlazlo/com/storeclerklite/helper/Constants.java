@@ -64,6 +64,10 @@ public class Constants {
     public static final int DOWNLOAD_PICK =                         3;
     public static final int DOWNLOAD_EXCEPTION =                    10;
 
+    public static String OCR_LICENSE_CODE = "";
+
+    public static String HOCKEY_APP_ID = "";
+
     // Endpoint we are targeting for the deployed WebAPI service
     public static String SERVICE_URL =                              "";
     public static String TOKEN =                                    "";
@@ -97,6 +101,9 @@ public class Constants {
     public static final String URL_REGISTER_USER_DATA =             "/api/v1/user/clerk/create";
     public static final String URL_REPORT_BY_DAY =                  "/api/admin/v1/reports/user/panels/byday";
     public static final String URL_PROXIMITY_UPLOAD =               "/api/v1/shopping/proximity/upload/url";
+    public static final String URL_ACTIVATE_USER =                  "/api/v1/user/activate";
+    public static final String URL_GET_INACTIVE_USERS =             "/api/admin/v1/users/inactive";
+    public static final String URL_HOCKEY_APP_ID = "/api/v1/admin/clerk/config";
 
     public static final String URL_REGISTER_PUSH_NOTIFICATION =   "/api/v2/notification/user/register";
 
@@ -114,7 +121,7 @@ public class Constants {
         this.PLAYER_TOKEN = sharedPref.getString("playerToken", "");
         this.FB_AUTHONTICATION_CODE = sharedPref.getString("fbAuthenticationCode", "");
         this.FB_ACCESS_TOKEN = sharedPref.getString("fbAccessToken", "");
-
+        this.HOCKEY_APP_ID = sharedPref.getString("hockeyAppIdAndroid", "");
     }
 
 }
