@@ -3,6 +3,7 @@ package lite.storeclerk.admin.playlazlo.com.storeclerklite;
 import android.app.Dialog;
 import android.app.KeyguardManager;
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -737,7 +738,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
     public void init()
     {
         nearby = NearByUtil.getInstance();
-        nearby.init(this, Build.MANUFACTURER,"clerk");
+        nearby.init(this, getPhoneName(),"clerk");
         nearby.delegate = this;
     }
 
@@ -750,5 +751,12 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
     public void onDisconnect() {
 
     }
+    public String getPhoneName()
+    {
+        BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
+        String deviceName = myDevice.getName();
+        return deviceName;
+    }
+
 
 }
