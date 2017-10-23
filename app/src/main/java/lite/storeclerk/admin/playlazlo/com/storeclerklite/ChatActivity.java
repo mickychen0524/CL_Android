@@ -44,6 +44,7 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
         nearby = NearByUtil.getInstance();
         //nearby.init(this, Build.MANUFACTURER,"clerk");
         nearby.delegate = this;
+        nearby.setActivity(this);
 
         String[] from={"name"};//string array
         int[] to={R.id.textView};//int array of views id's
