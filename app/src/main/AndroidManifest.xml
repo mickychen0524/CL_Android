@@ -30,7 +30,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:name">
         <activity android:name=".PermissionActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,7 +40,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -168,7 +168,7 @@
             android:exported="true" />
 
         <activity android:name=".ChatActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
 
     </application>
