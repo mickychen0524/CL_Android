@@ -729,6 +729,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         return true;
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -751,12 +752,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
     public void onDisconnect() {
 
     }
-    public String getPhoneName()
-    {
-        BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
-        String deviceName = myDevice.getName();
-        return deviceName;
-    }
+
 
 
 }
