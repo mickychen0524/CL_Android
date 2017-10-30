@@ -81,16 +81,20 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
     {
 
         HashMap<String,DeviceModel> clientList = nearby.getClientList();
-        Log.i("Clerk", "populateData" + " - " + clientList.size());
-        arrayList.clear();
-        Iterator it = clientList.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            DeviceModel value = (DeviceModel)pair.getValue();
-            HashMap<String,String> map = new HashMap<>();
-            map.put("name", value.getName());
-            arrayList.add(map);
+        if(clientList != null)
+        {
+            Log.i("Clerk", "populateData" + " - " + clientList.size());
+            arrayList.clear();
+            Iterator it = clientList.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                DeviceModel value = (DeviceModel)pair.getValue();
+                HashMap<String,String> map = new HashMap<>();
+                map.put("name", value.getName());
+                arrayList.add(map);
+            }
         }
+
         simpleAdapter.notifyDataSetChanged();
     }
 
