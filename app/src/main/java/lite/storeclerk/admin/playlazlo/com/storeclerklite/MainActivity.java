@@ -738,7 +738,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
     public void init()
     {
         nearby = NearByUtil.getInstance();
-        nearby.init(this, getPhoneName(),"clerk");
+        nearby.init(this, Build.MANUFACTURER,"clerk");
         nearby.delegate = this;
     }
 
