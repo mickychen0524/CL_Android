@@ -1,6 +1,7 @@
 package lite.storeclerk.admin.playlazlo.com.storeclerklite;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,14 +9,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.etsy.android.grid.StaggeredGridView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import lite.storeclerk.admin.playlazlo.com.storeclerklite.adapter.ChatAdapter;
 import project.labs.avviotech.com.chatsdk.nearby.NearByUtil;
 import project.labs.avviotech.com.chatsdk.net.model.DeviceModel;
 import project.labs.avviotech.com.chatsdk.net.protocol.NearByProtocol;
@@ -24,9 +29,9 @@ import project.labs.avviotech.com.chatsdk.net.protocol.NearByProtocol;
 public class ChatActivity extends AppCompatActivity implements NearByProtocol.DiscoveryProtocol{
 
     private NearByUtil nearby;
-    private ListView listView;
-    private ArrayList<HashMap<String,String>> arrayList;
-    private SimpleAdapter simpleAdapter;
+    private StaggeredGridView mGridView;
+    private ChatAdapter mAdapter;
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,35 +51,29 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
         nearby.delegate = this;
         nearby.setActivity(this);
 
-        String[] from={"name"};//string array
-        int[] to={R.id.textView};//int array of views id's
-        listView = (ListView)findViewById(R.id.client_list);
-        arrayList=new ArrayList<>();
-        simpleAdapter = new SimpleAdapter(this,arrayList, project.labs.avviotech.com.chatsdk.R.layout.list_view_items,from,to);
-        listView.setAdapter(simpleAdapter);
-        simpleAdapter.notifyDataSetChanged();
+        mGridView = (StaggeredGridView) findViewById(R.id.grid_view);
+        mAdapter = new ChatAdapter(this, R.id.txt_name);
 
+        mGridView.setAdapter(mAdapter);
 
+        mAdapter.notifyDataSetChanged();
+        mAdapter.setNearby(nearby);
 
+        backButton = (Button) findViewById(R.id.chat_back);
 
     }
 
     public void click()
     {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Object[] keys = nearby.getPeerList().keySet().toArray();
-                        String d = nearby.getPeerList().get(keys[i]).getAddress();
-                        nearby.call(d);
-                    }
-                });
-
+            public void onClick(View view) {
+                Intent intent = new Intent(ChatActivity.this,MainActivity.class);
+                finish();
+                startActivity(intent);
             }
         });
+
     }
 
     public void populateData()
@@ -84,18 +83,18 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
         if(clientList != null)
         {
             Log.i("Clerk", "populateData" + " - " + clientList.size());
-            arrayList.clear();
+            mAdapter.clear();
             Iterator it = clientList.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
                 DeviceModel value = (DeviceModel)pair.getValue();
                 HashMap<String,String> map = new HashMap<>();
                 map.put("name", value.getName());
-                arrayList.add(map);
+                mAdapter.add(value.getName());
             }
         }
 
-        simpleAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
