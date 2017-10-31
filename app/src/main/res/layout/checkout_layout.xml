@@ -26,69 +26,61 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/main_header_layout"
         android:padding="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:id="@+id/linearLayout2"
+        android:weightSum="1">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="5.85">
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkout_caption_txt"
-                android:text="Enter Player Code"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/color_grey_light"
-                android:layout_toStartOf="@+id/checkout_qrdecoderview"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/checkout_error_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/checkout_caption_txt"
                 android:text="Oops! That's not a valid code"
-                android:textStyle="bold"
                 android:textColor="@color/color_red_error"
                 android:textSize="16sp"
-                android:layout_marginTop="25dp"
-                android:layout_below="@+id/checkout_caption_txt"
-                android:layout_toStartOf="@+id/checkout_qrdecoderview"/>
-            <com.dlazaro66.qrcodereaderview.QRCodeReaderView
-                android:id="@+id/checkout_qrdecoderview"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentEnd="true"/>
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/checkout_caption_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Enter Player Code"
+                android:textColor="@color/color_grey_light"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="91dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="OR"
+                android:textColor="@color/color_grey_light"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/checkout_error_txt"
+                android:layout_toEndOf="@+id/checkout_insert_code_edit" />
+
+            <EditText
+                android:id="@+id/checkout_insert_code_edit"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:background="@color/color_blue_light"
+                android:hint="Code"
+                android:padding="10dp"
+                android:layout_below="@+id/checkout_error_txt"
+                android:layout_alignParentStart="true" />
+
         </RelativeLayout>
-
-        <EditText
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkout_insert_code_edit"
-            android:padding="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="15dp"
-            android:hint="Code"
-            android:background="@color/color_blue_light"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/color_grey_light"
-            android:padding="5dp"
-            android:layout_marginTop="10dp"
-            android:text="The Player will show you a screen that has a Qr or Bar Code and a short code above it. Enter the short code."
-            android:textSize="14sp"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkout_next_btn"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/color_grey_dark"
-            android:text="Next"
-            android:textAllCaps="false"
-            android:layout_marginTop="15dp"
-            android:background="@color/color_blue_light"/>
 
     </LinearLayout>
     <Button
@@ -103,4 +95,43 @@
         android:text="Cancel"
         android:textAllCaps="false"
         android:background="@color/color_pink_main"/>
+
+    <Button
+        android:id="@+id/checkout_next_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/checkout_cancel_btn"
+        android:layout_alignStart="@+id/checkout_cancel_btn"
+        android:background="@color/color_blue_light"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:textColor="@color/color_grey_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_alignEnd="@+id/checkout_cancel_btn" />
+
+    <com.dlazaro66.qrcodereaderview.QRCodeReaderView
+        android:id="@+id/checkout_qrdecoderview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/checkout_next_btn"
+        android:layout_alignEnd="@+id/checkout_cancel_btn"
+        android:layout_alignStart="@+id/checkout_next_btn"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/checkout_qrdecoderview"
+        android:layout_alignStart="@+id/checkout_qrdecoderview"
+        android:layout_below="@+id/linearLayout2"
+        android:alpha=".8"
+        android:background="@android:color/darker_gray"
+        android:padding="5dp"
+        android:text="The Player will show you a screen that has a Qr or Bar Code and a short code above it. Enter the short code."
+        android:textColor="@color/color_white_main"
+        android:textSize="14sp" />
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -27,9 +28,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_header_layout"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:weightSum="1"
+        android:layout_below="@+id/main_header_layout"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -41,7 +45,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_toStartOf="@+id/claim_qrdecoderview"
                 android:text="Enter Coupon Code"
                 android:textColor="@color/color_grey_light"
                 android:textSize="24sp"
@@ -51,51 +54,36 @@
                 android:id="@+id/claim_error_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/claim_caption_txt"
-                android:layout_marginTop="25dp"
-                android:layout_toStartOf="@+id/claim_qrdecoderview"
                 android:text="Oops! That's not a valid code"
                 android:textColor="@color/color_red_error"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_below="@+id/claim_caption_txt"
+                android:layout_alignParentStart="true" />
 
-            <com.dlazaro66.qrcodereaderview.QRCodeReaderView
-                android:id="@+id/claim_qrdecoderview"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentEnd="true" />
+            <EditText
+                android:id="@+id/claim_insert_code_edit"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:background="@color/color_blue_light"
+                android:hint="Code"
+                android:padding="10dp"
+                android:layout_below="@+id/claim_error_txt"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toEndOf="@+id/claim_insert_code_edit"
+                android:text="OR"
+                android:textColor="@color/color_grey_light"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/claim_error_txt" />
+
         </RelativeLayout>
-
-        <EditText
-            android:id="@+id/claim_insert_code_edit"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/color_blue_light"
-            android:hint="Code"
-            android:padding="10dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:padding="5dp"
-            android:text="The Player will show you a screen that has a Qr or Bar Code and a short code above it. Enter the short code."
-            android:textColor="@color/color_grey_light"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/claim_next_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@color/color_blue_light"
-            android:text="Next"
-            android:textAllCaps="false"
-            android:textColor="@color/color_grey_dark"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -111,4 +99,43 @@
         android:textColor="@color/color_grey_dark"
         android:textSize="18sp"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/claim_next_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/claim_cancel_btn"
+        android:layout_alignStart="@+id/claim_cancel_btn"
+        android:background="@color/color_blue_light"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:textColor="@color/color_grey_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_alignEnd="@+id/claim_cancel_btn" />
+
+    <com.dlazaro66.qrcodereaderview.QRCodeReaderView
+        android:id="@+id/claim_qrdecoderview"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_above="@+id/claim_next_btn"
+        android:layout_alignEnd="@+id/claim_next_btn"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.82"
+        android:layout_alignStart="@+id/claim_next_btn" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/claim_qrdecoderview"
+        android:layout_alignStart="@+id/claim_qrdecoderview"
+        android:layout_below="@+id/linearLayout"
+        android:alpha="0.8"
+        android:background="@android:color/darker_gray"
+        android:padding="5dp"
+        android:text="The Player will show you a screen that has a Qr or Bar Code and a short code above it. Enter the short code."
+        android:textColor="@color/color_white_main"
+        android:textSize="14sp" />
 </RelativeLayout>

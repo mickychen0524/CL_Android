@@ -15,6 +15,7 @@ import android.hardware.fingerprint.FingerprintManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.security.keystore.KeyProperties;
 import android.support.v4.app.NotificationCompat;
@@ -123,7 +124,12 @@ public class MainActivity extends AppCompatActivity {
                     Constants.GEO_LONGITUDE = String.valueOf(location.getLongitude());
                 }
                 else{
-                    Toast.makeText(MainActivity.this, "Geo service is not working", Toast.LENGTH_SHORT).show();
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this, "Geo service is not working", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         };

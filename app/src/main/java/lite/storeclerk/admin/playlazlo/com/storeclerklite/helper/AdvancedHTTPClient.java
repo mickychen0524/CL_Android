@@ -66,6 +66,43 @@ public class AdvancedHTTPClient {
         }
     }
 
+    private class HTTPGetWithOutHeader extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            HttpURLConnection conn = null;
+            BufferedReader br = null;
+            try {
+                URL url = new URL(Constants.SERVICE_URL + params[0]);
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Lazlo-AuthorityLicenseCode", Constants.TOKEN);
+
+                int code = conn.getResponseCode();
+                if (code < 200 || code >= 300) {
+                    br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                    String apiOutput = br.readLine();
+                    throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+                }
+
+                br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+                String apiOutput = br.readLine();
+                return new JSONObject(apiOutput);
+            } catch (Exception e) {
+                Log.d("json_e-->", e.getMessage());
+            } finally {
+                AppHelper.close(br);
+                if (conn != null) {
+                    conn.disconnect();
+                }
+            }
+            return null;
+        }
+    }
+
     private class HTTPGetWithHeaderUsingAuthCode extends AsyncTask<String, Void, JSONObject> {
 
         @Override
@@ -306,7 +343,7 @@ public class AdvancedHTTPClient {
     }
 
     public JSONObject httpGetMethod(Context context, String url) throws Exception {
-        return new HTTPGetWithHeader().execute(url).get();
+        return new HTTPGetWithOutHeader().execute(url).get();
     }
 
     public JSONObject httpGetMethod(String url) throws Exception {

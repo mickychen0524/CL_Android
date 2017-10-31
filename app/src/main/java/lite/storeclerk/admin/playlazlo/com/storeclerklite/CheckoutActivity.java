@@ -1,10 +1,8 @@
 package lite.storeclerk.admin.playlazlo.com.storeclerklite;
 
-import android.*;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PointF;
@@ -12,16 +10,13 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,19 +24,11 @@ import android.widget.Toast;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.net.Inet4Address;
-import java.text.DateFormat;
-import java.util.Date;
 
 import cn.refactor.lib.colordialog.PromptDialog;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.APIInterface;
-
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.AndroidUtilities;
-import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.Constants;
-import lite.storeclerk.admin.playlazlo.com.storeclerklite.service.GettingRetailerListService;
 
 /**
  * Created by mymac on 3/28/17.
@@ -140,9 +127,9 @@ public class CheckoutActivity extends AppCompatActivity implements QRCodeReaderV
         codeTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    CheckoutActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                }
+//                if (hasFocus) {
+//                    CheckoutActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//                }
             }
         });
         cancelBtn.setOnClickListener(new View.OnClickListener() {

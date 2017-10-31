@@ -17,7 +17,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -128,9 +127,9 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
         codeTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    ClaimActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                }
+//                if (hasFocus) {
+//                    ClaimActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//                }
             }
         });
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -187,6 +186,7 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
                             }
 
                             if (receivedObj != null) {
+                                Log.i("devoloTest", "");
                                 try {
                                     JSONObject jsonData = receivedObj.getJSONObject("data");
 
