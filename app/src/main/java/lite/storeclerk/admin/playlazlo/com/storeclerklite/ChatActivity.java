@@ -115,7 +115,6 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
     @Override
     protected void onStop() {
         super.onStop();
-        nearby.stop();
     }
 
 }

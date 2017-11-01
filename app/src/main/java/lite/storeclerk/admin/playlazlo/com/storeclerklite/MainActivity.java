@@ -736,6 +736,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         nearby.start();
     }
 
+
     public void init()
     {
         nearby = NearByUtil.getInstance();
@@ -745,7 +746,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
 
     @Override
     public void onPeersFound(HashMap<String, DeviceModel> devices) {
-        nearby.playSound();
+        //nearby.playSound();
     }
 
     @Override
@@ -753,6 +754,9 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
 
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        nearby.stop();
+    }
 }
