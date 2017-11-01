@@ -745,7 +745,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
 
     @Override
     public void onPeersFound(HashMap<String, DeviceModel> devices) {
-
+        nearby.playSound();
     }
 
     @Override

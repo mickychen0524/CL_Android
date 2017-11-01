@@ -11,6 +11,7 @@
         android:id="@+id/user_icon"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/ic_chat"
         android:backgroundTint="#F37D19"/>
 
@@ -21,6 +22,6 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
-        android:gravity="center" />
+        android:textColor="#F37D19"/>
 
 </RelativeLayout>

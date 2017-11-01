@@ -68,6 +68,7 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                nearby.stop();
                 Intent intent = new Intent(ChatActivity.this,MainActivity.class);
                 finish();
                 startActivity(intent);
@@ -91,6 +92,10 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
                 HashMap<String,String> map = new HashMap<>();
                 map.put("name", value.getName());
                 mAdapter.add(value.getName());
+            }
+            if(clientList.size() > 0)
+            {
+                nearby.playSound();
             }
         }
 

@@ -14,4 +14,14 @@ public class App extends MultiDexApplication {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+    }
 }
