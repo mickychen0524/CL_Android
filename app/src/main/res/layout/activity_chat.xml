@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="lite.storeclerk.admin.playlazlo.com.storeclerklite.ChatActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/main_left_img"
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:layout_marginTop="2dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/clerklogo215x215" />
+
+        <ImageView
+            android:id="@+id/permission_right_img"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/lazlologo_h" />
+
+        <Button
+            android:id="@+id/chat_back"
+            android:layout_width="114dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/permission_right_img"
+            android:background="@android:color/transparent"
+            android:text="Back"
+            android:textAllCaps="false"
+            android:textColor="@color/color_orange_main"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <com.etsy.android.grid.StaggeredGridView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/grid_view"
+            android:layout_below="@+id/main_left_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:item_margin="8dp"
+            app:column_count="3" />
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>

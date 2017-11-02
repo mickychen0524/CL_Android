@@ -11,7 +11,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+
+
     }
+
+    sourceSets.main {
+        jniLibs.srcDir 'libs'
+        jni.srcDirs = [] //disable automatic ndk-build call
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -112,5 +120,10 @@ dependencies {
     compile 'android.arch.persistence.room:runtime:' + rootProject.archRoomVersion;
     annotationProcessor 'android.arch.persistence.room:compiler:' + rootProject.archRoomVersion;
     compile 'net.hockeyapp.android:HockeySDK:5.0.2'
+    compile 'com.google.android.gms:play-services-nearby:11.0.1'
+    compile project(":chat-sdk")
+    compile 'gun0912.ted:tedpermission:1.0.2'
+    compile 'com.etsy.android.grid:library:1.0.5' // see changelog
+
 
 }

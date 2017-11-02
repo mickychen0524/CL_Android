@@ -3,6 +3,7 @@ package lite.storeclerk.admin.playlazlo.com.storeclerklite;
 import android.app.Dialog;
 import android.app.KeyguardManager;
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.location.Location;
+import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -27,6 +30,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.facebook.accountkit.AccountKit;
@@ -52,6 +56,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.crypto.Cipher;
@@ -70,8 +75,11 @@ import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.Constants;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.GeoLocationUtil;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.service.GettingRetailerListService;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.service.ServiceResultReceiver;
+import project.labs.avviotech.com.chatsdk.nearby.NearByUtil;
+import project.labs.avviotech.com.chatsdk.net.model.DeviceModel;
+import project.labs.avviotech.com.chatsdk.net.protocol.NearByProtocol;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NearByProtocol.DiscoveryProtocol{
     private int APP_REQUEST_CODE = 99;
     private ProgressDialog mProgressDialog;
     private JSONObject receivedObj;
@@ -83,8 +91,10 @@ public class MainActivity extends AppCompatActivity {
     private Button checkoutBottomBtn;
     private Button claimBottomBtn;
     private Button refundBottomBtn;
+    private Button chatBottomBtn;
     private Button activateBtn;
     private SwipeRefreshLayout swipeContainer;
+    private NearByUtil nearby;
 
     /* put this into your activity class */
     private SensorManager mSensorManager;
@@ -153,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
         checkoutBottomBtn = (Button) findViewById(R.id.main_bottom_checkout_btn);
         claimBottomBtn = (Button) findViewById(R.id.main_bottom_claim_btn);
         refundBottomBtn = (Button) findViewById(R.id.main_bottom_refund_btn);
+        chatBottomBtn = (Button) findViewById(R.id.main_bottom_chat_btn);
+
+        init();
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
@@ -166,6 +179,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, ActivateActivity.class);
                 startActivity(i);
                 finish();
+            }
+        });
+
+        chatBottomBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -295,6 +316,8 @@ public class MainActivity extends AppCompatActivity {
         });
         setupGeoAndRetailerService();
         getAllGameList();
+
+
 
     }
 
@@ -720,5 +743,36 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        nearby.start();
+    }
+
+
+    public void init()
+    {
+        nearby = NearByUtil.getInstance();
+        nearby.init(this, Build.MANUFACTURER,"clerk");
+        nearby.delegate = this;
+    }
+
+    @Override
+    public void onPeersFound(HashMap<String, DeviceModel> devices) {
+        //nearby.playSound();
+    }
+
+    @Override
+    public void onDisconnect() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        nearby.stop();
     }
 }
