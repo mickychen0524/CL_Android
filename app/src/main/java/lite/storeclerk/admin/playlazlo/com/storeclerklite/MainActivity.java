@@ -375,34 +375,38 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupGeoAndRetailerService() {
         // getting location service part
-
-        GeoLocationUtil geoLocationUtil = new GeoLocationUtil();
-        GeoLocationUtil.LocationResult geoLocationResult = new GeoLocationUtil.LocationResult() {
+        final GeoLocationUtil geoLocationUtil = new GeoLocationUtil();
+        final GeoLocationUtil.LocationResult geoLocationResult = new GeoLocationUtil.LocationResult() {
             @Override
             public void gotLocation(final Location location) {
-                runOnUiThread(new Runnable() {
-                    @Override
+                new Thread() {
                     public void run() {
-                        if (location != null) {
-                            Constants.GEO_LATITUDE = String.valueOf(location.getLatitude());
-                            Constants.GEO_LONGITUDE = String.valueOf(location.getLongitude());
-                            setupServiceReceiver();
-                            mServiceIntent = new Intent(MainActivity.this, GettingRetailerListService.class);
-                            mServiceIntent.putExtra("gettingStatus", true);
-                            mServiceIntent.putExtra("receiver", mReceiverForRetailer);
-                            MainActivity.this.startService(mServiceIntent);
-                        } else {
-//                    Toast.makeText(MainActivity.this, "Geo service is not working", Toast.LENGTH_SHORT).show();
-                        }
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                //Do your UI operations like dialog opening or Toast here
+                                if (location != null) {
+                                    Constants.GEO_LATITUDE = String.valueOf(location.getLatitude());
+                                    Constants.GEO_LONGITUDE = String.valueOf(location.getLongitude());
+                                    setupServiceReceiver();
+                                    mServiceIntent = new Intent(MainActivity.this, GettingRetailerListService.class);
+                                    mServiceIntent.putExtra("gettingStatus", true);
+                                    mServiceIntent.putExtra("receiver", mReceiverForRetailer);
+                                    MainActivity.this.startService(mServiceIntent);
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Geo service is not working", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
-                });
+                }.start();
             }
-
-            ;
-//        if(!geoLocationUtil.getLocation(MainActivity.this,geoLocationResult)){
-//            Toast.makeText(MainActivity.this, "Geo service is not working", Toast.LENGTH_SHORT).show();
-//        }
         };
+
+        if (!geoLocationUtil.getLocation(MainActivity.this, geoLocationResult)) {
+            Toast.makeText(MainActivity.this, "Geo service is not working", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     private void setupServiceReceiver() {
