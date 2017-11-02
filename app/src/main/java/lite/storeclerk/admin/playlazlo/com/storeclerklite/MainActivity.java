@@ -355,11 +355,13 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
             claimBottomBtn.setVisibility(View.VISIBLE);
             reportBottomBtn.setVisibility(View.VISIBLE);
             refundBottomBtn.setVisibility(View.VISIBLE);
+            chatBottomBtn.setVisibility(View.VISIBLE);
         } else {
             checkoutBottomBtn.setVisibility(View.GONE);
             claimBottomBtn.setVisibility(View.GONE);
             reportBottomBtn.setVisibility(View.GONE);
             refundBottomBtn.setVisibility(View.GONE);
+            chatBottomBtn.setVisibility(View.GONE);
         }
     }
 
