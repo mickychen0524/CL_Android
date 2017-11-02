@@ -97,6 +97,10 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
             {
                 nearby.playSound();
             }
+            else
+            {
+                nearby.stopSound();
+            }
         }
 
         mAdapter.notifyDataSetChanged();
