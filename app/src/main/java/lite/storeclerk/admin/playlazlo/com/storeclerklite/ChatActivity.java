@@ -47,7 +47,6 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
     public void init()
     {
         nearby = NearByUtil.getInstance();
-        //nearby.init(this, Build.MANUFACTURER,"clerk");
         nearby.delegate = this;
         nearby.setActivity(this);
 
@@ -68,7 +67,6 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nearby.stop();
                 Intent intent = new Intent(ChatActivity.this,MainActivity.class);
                 finish();
                 startActivity(intent);

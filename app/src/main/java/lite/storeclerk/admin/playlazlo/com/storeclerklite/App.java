@@ -25,6 +25,7 @@ public class App extends MultiDexApplication {
     @Override
     public void onTerminate() {
         super.onTerminate();
-
+        NearByUtil nearby = NearByUtil.getInstance();
+        nearby.stop();
     }
 }

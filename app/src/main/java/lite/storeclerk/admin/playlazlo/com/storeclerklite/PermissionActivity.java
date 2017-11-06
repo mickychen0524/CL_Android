@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.Constants;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.SetInitialVarsOnLocal;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.service.ConfigService;
+import project.labs.avviotech.com.chatsdk.nearby.NearByUtil;
 
 /**
  * Created by mymac on 3/28/17.
@@ -33,7 +35,7 @@ public class PermissionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.permission_layout);
-
+        init();
         Button cameraPermissionBtn = (Button) findViewById(R.id.permission_camera_btn);
         cameraPermissionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,4 +208,13 @@ public class PermissionActivity extends AppCompatActivity {
     private void getConfiguration(){
         startService(new Intent(PermissionActivity.this, ConfigService.class));
     }
+
+    public void init()
+    {
+        NearByUtil nearby = NearByUtil.getInstance();
+        nearby.init(this, Build.MANUFACTURER,"clerk");
+        nearby.start();
+    }
+
+
 }

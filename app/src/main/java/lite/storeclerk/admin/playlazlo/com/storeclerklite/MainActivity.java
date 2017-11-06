@@ -729,18 +729,9 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         return true;
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        nearby.start();
-    }
-
-
     public void init()
     {
         nearby = NearByUtil.getInstance();
-        nearby.init(this, Build.MANUFACTURER,"clerk");
         nearby.delegate = this;
     }
 
@@ -757,6 +748,5 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        nearby.stop();
     }
 }
