@@ -104,7 +104,7 @@ dependencies {
     compile 'com.google.firebase:firebase-core:11.0.1'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.5'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
-    compile 'com.google.android.gms:play-services:11.0.1'
+    compile 'com.google.android.gms:play-services:11.6.0'
     compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     compile 'com.estimote:sdk:0.10.+@aar'
@@ -120,7 +120,7 @@ dependencies {
     compile 'android.arch.persistence.room:runtime:' + rootProject.archRoomVersion;
     annotationProcessor 'android.arch.persistence.room:compiler:' + rootProject.archRoomVersion;
     compile 'net.hockeyapp.android:HockeySDK:5.0.2'
-    compile 'com.google.android.gms:play-services-nearby:11.0.1'
+    compile 'com.google.android.gms:play-services-nearby:11.6.0'
     compile project(":chat-sdk")
     compile 'gun0912.ted:tedpermission:1.0.2'
     compile 'com.etsy.android.grid:library:1.0.5' // see changelog
