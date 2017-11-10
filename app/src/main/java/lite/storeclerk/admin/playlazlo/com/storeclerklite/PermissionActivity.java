@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,16 +14,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.Constants;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.SetInitialVarsOnLocal;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.service.ConfigService;
 import project.labs.avviotech.com.chatsdk.nearby.NearByUtil;
+import project.labs.avviotech.com.chatsdk.net.model.DeviceModel;
+import project.labs.avviotech.com.chatsdk.net.protocol.NearByProtocol;
 
 /**
  * Created by mymac on 3/28/17.
  */
 
-public class PermissionActivity extends AppCompatActivity {
+public class PermissionActivity extends AppCompatActivity{
 
     private Button cameraStateImg;
     private Button locationStateImg;
@@ -196,11 +201,11 @@ public class PermissionActivity extends AppCompatActivity {
         }
 
         if (camStateFlg && locStateFlg && stgStateFlg) {
-            //init();
-            //getConfiguration();
+            init();
             Intent i = new Intent(PermissionActivity.this, MainActivity.class);
             startActivity(i);
             finish();
+
         }
     }
 
@@ -220,6 +225,8 @@ public class PermissionActivity extends AppCompatActivity {
         nearby.init(this, Build.MANUFACTURER,"clerk");
         nearby.start();
     }
+
+
 
 
 }
