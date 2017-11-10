@@ -35,7 +35,7 @@ public class PermissionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.permission_layout);
-        init();
+
         Button cameraPermissionBtn = (Button) findViewById(R.id.permission_camera_btn);
         cameraPermissionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +84,7 @@ public class PermissionActivity extends AppCompatActivity {
 
     private void setLocationPermission() {
         ActivityCompat.requestPermissions(PermissionActivity.this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                 1);
     }
 
@@ -120,7 +120,7 @@ public class PermissionActivity extends AppCompatActivity {
 
                 }
             }
-            if (permissions[0].equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (permissions[0].equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 switch (requestCode) {
                     case 1: {
 
@@ -169,6 +169,9 @@ public class PermissionActivity extends AppCompatActivity {
     }
 
     private void gotoMainPage() {
+
+
+
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         camStateFlg = sharedPref.getBoolean("cameraState", false);
         locStateFlg = sharedPref.getBoolean("locationState", false);
@@ -193,6 +196,7 @@ public class PermissionActivity extends AppCompatActivity {
         }
 
         if (camStateFlg && locStateFlg && stgStateFlg) {
+            init();
             Intent i = new Intent(PermissionActivity.this, MainActivity.class);
             startActivity(i);
             finish();
