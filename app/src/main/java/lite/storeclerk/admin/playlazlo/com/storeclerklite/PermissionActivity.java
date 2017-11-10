@@ -72,6 +72,7 @@ public class PermissionActivity extends AppCompatActivity {
             editor.apply();
         }
         new Constants(PermissionActivity.this);
+        getConfiguration();
         gotoMainPage();
     }
 
@@ -195,8 +196,8 @@ public class PermissionActivity extends AppCompatActivity {
         }
 
         if (camStateFlg && locStateFlg && stgStateFlg) {
-            init();
-            getConfiguration();
+            //init();
+            //getConfiguration();
             Intent i = new Intent(PermissionActivity.this, MainActivity.class);
             startActivity(i);
             finish();

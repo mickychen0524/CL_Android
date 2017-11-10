@@ -732,7 +732,19 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
     public void init()
     {
         nearby = NearByUtil.getInstance();
+        if(nearby.getGoogleClient() == null)
+        {
+            initWithStart();
+        }
         nearby.delegate = this;
+
+    }
+
+    public void initWithStart()
+    {
+        nearby.init(this, Build.MANUFACTURER,"clerk");
+        nearby = NearByUtil.getInstance();
+        nearby.start();
     }
 
     @Override
