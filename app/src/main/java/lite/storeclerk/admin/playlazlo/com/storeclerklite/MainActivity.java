@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         refundBottomBtn = (Button) findViewById(R.id.main_bottom_refund_btn);
         chatBottomBtn = (Button) findViewById(R.id.main_bottom_chat_btn);
 
-        init();
+
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
@@ -729,9 +729,15 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         return true;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        init();
+    }
+
     public void init()
     {
-        nearby = NearByUtil.getInstance();
+        nearby = NearByUtil.getInstance(this,Build.MANUFACTURER,"clerk");
         nearby.delegate = this;
     }
 
@@ -750,5 +756,11 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        nearby.start();
     }
 }

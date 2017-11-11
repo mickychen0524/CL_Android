@@ -1,10 +1,15 @@
 package lite.storeclerk.admin.playlazlo.com.storeclerklite;
 
+import android.*;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,9 +24,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.adapter.ChatAdapter;
+import project.labs.avviotech.com.chatsdk.CallActivity;
 import project.labs.avviotech.com.chatsdk.nearby.NearByUtil;
+import project.labs.avviotech.com.chatsdk.net.client.Client;
 import project.labs.avviotech.com.chatsdk.net.model.DeviceModel;
 import project.labs.avviotech.com.chatsdk.net.protocol.NearByProtocol;
 
@@ -32,6 +40,7 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
     private StaggeredGridView mGridView;
     private ChatAdapter mAdapter;
     private Button backButton;
+    private final int RECORD_AUDIO = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +55,19 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
 
     public void init()
     {
-        nearby = NearByUtil.getInstance();
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.RECORD_AUDIO);
+
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.RECORD_AUDIO},
+                    RECORD_AUDIO);
+        }
+
+        nearby = NearByUtil.getInstance(this,Build.MANUFACTURER,"clerk");
         nearby.delegate = this;
         nearby.setActivity(this);
 
@@ -59,6 +80,8 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
         mAdapter.setNearby(nearby);
 
         backButton = (Button) findViewById(R.id.chat_back);
+
+        populateData();
 
     }
 
@@ -117,6 +140,29 @@ public class ChatActivity extends AppCompatActivity implements NearByProtocol.Di
     @Override
     protected void onStop() {
         super.onStop();
+        nearby.start();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case RECORD_AUDIO: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+        }
     }
 
 }

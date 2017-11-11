@@ -1,6 +1,7 @@
 package lite.storeclerk.admin.playlazlo.com.storeclerklite;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
@@ -25,7 +26,8 @@ public class App extends MultiDexApplication {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        NearByUtil nearby = NearByUtil.getInstance();
-        nearby.stop();
+        NearByUtil nearby = NearByUtil.getStaticInternalInstance();
+        if(nearby != null)
+            nearby.stop();
     }
 }
