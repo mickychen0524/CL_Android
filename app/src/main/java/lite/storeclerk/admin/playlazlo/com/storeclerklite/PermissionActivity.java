@@ -209,6 +209,7 @@ public class PermissionActivity extends AppCompatActivity{
     }
 
     public void intentMainPage(View v) {
+        init();
         Intent i = new Intent(PermissionActivity.this, MainActivity.class);
         startActivity(i);
         finish();
