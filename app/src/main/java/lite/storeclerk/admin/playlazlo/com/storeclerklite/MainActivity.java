@@ -763,4 +763,6 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         super.onStop();
         nearby.start();
     }
+
+
 }
