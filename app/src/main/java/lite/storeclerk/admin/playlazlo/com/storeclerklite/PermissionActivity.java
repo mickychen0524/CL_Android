@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.Constants;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.SetInitialVarsOnLocal;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.service.ConfigService;
+import project.labs.avviotech.com.chatsdk.nearby.NearByUtil;
 
 /**
  * Created by mymac on 3/28/17.
@@ -82,7 +84,7 @@ public class PermissionActivity extends AppCompatActivity {
 
     private void setLocationPermission() {
         ActivityCompat.requestPermissions(PermissionActivity.this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                 1);
     }
 
@@ -118,7 +120,7 @@ public class PermissionActivity extends AppCompatActivity {
 
                 }
             }
-            if (permissions[0].equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (permissions[0].equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 switch (requestCode) {
                     case 1: {
 
@@ -198,6 +200,7 @@ public class PermissionActivity extends AppCompatActivity {
     }
 
     public void intentMainPage(View v) {
+        init();
         Intent i = new Intent(PermissionActivity.this, MainActivity.class);
         startActivity(i);
         finish();
@@ -205,5 +208,10 @@ public class PermissionActivity extends AppCompatActivity {
 
     private void getConfiguration(){
         startService(new Intent(PermissionActivity.this, ConfigService.class));
+    }
+
+    public void init()
+    {
+        NearByUtil nearby = NearByUtil.getInstance(this,Build.MANUFACTURER,"clerk");
     }
 }
