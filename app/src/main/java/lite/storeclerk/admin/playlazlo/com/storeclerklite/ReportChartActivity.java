@@ -30,14 +30,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import cn.refactor.lib.colordialog.PromptDialog;
-import lite.storeclerk.admin.playlazlo.com.storeclerklite.adapter.MainGameListAdapter;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.APIInterface;
-
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.AppHelper;
-import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.Constants;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.DayAxisValueFormatter;
 import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.MyAxisValueFormatter;
 
@@ -118,6 +114,7 @@ public class ReportChartActivity extends AppCompatActivity implements
     public void onBackAction(View view) {
         Intent i = new Intent(this, MainActivity.class);
         i.putExtra("backView", "back");
+
         startActivity(i);
         finish();
     }

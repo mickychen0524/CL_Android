@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
     private Button reportBottomBtn;
     private Button checkoutBottomBtn;
     private Button claimBottomBtn;
+    private Button claimCodeBottomBtn;
+
     private Button refundBottomBtn;
     private Button chatBottomBtn;
     private Button activateBtn;
@@ -162,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         reportBottomBtn = (Button) findViewById(R.id.main_bottom_barchart_btn);
         checkoutBottomBtn = (Button) findViewById(R.id.main_bottom_checkout_btn);
         claimBottomBtn = (Button) findViewById(R.id.main_bottom_claim_btn);
+        claimCodeBottomBtn= (Button) findViewById(R.id.code_main_bottom_claim_btn);
         refundBottomBtn = (Button) findViewById(R.id.main_bottom_refund_btn);
         chatBottomBtn = (Button) findViewById(R.id.main_bottom_chat_btn);
 
@@ -251,7 +254,17 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
                 finish();
             }
         });
+        claimCodeBottomBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // If you’ve set your app’s minSdkVersion to anything lower than 23, then you’ll need to verify that the device is running Marshmallow
+                // or higher before executing any fingerprint-related code
 
+                Intent i = new Intent(MainActivity.this, ClaimCodeActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
         refundBottomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -315,7 +328,9 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
             }
         });
         setupGeoAndRetailerService();
-        getAllGameList();
+        if (!getIntent().hasExtra("backView")) {
+            getAllGameList();
+        }
 
 
 
@@ -710,6 +725,7 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
     protected void onResume() {
         super.onResume();
         mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+
     }
 
     @Override

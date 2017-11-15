@@ -18,13 +18,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import net.glxn.qrgen.android.QRCode;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,6 +103,8 @@ public class InactiveUsersActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(InactiveUsersActivity.this, MainActivity.class);
+            intent.putExtra("backView", "back");
+
             InactiveUsersActivity.this.startActivity(intent);
             finish();
         }

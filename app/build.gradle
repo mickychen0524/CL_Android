@@ -8,7 +8,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -25,6 +25,9 @@ android {
     }
     dexOptions {
         javaMaxHeapSize "4g"
+    }
+    lintOptions {
+        abortOnError false
     }
 
     productFlavors {

@@ -136,6 +136,7 @@ public class CheckoutActivity extends AppCompatActivity implements QRCodeReaderV
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(CheckoutActivity.this, MainActivity.class);
+                i.putExtra("backView", "back");
                 startActivity(i);
                 finish();
             }

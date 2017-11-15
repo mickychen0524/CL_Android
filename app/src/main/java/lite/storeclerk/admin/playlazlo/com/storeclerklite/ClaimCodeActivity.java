@@ -34,7 +34,7 @@ import lite.storeclerk.admin.playlazlo.com.storeclerklite.helper.AndroidUtilitie
  * Created by mymac on 3/28/17.
  */
 
-public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
+public class ClaimCodeActivity extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
 
     private static final int PERMISSION_ALL = 1;
     String[] PERMISSIONS = {android.Manifest.permission.CAMERA};
@@ -51,12 +51,12 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.claim_layout);
+        setContentView(R.layout.claim_code_activity);
         b_alertStateFlg = false;
         if(!hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         } else {
-            mydecoderview = (QRCodeReaderView) findViewById(R.id.claim_qrdecoderview);
+            mydecoderview = (QRCodeReaderView) findViewById(R.id.checkout_qrdecoderview);
 
             mydecoderview.setOnQRCodeReadListener(this);
 
@@ -77,14 +77,14 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
             mydecoderview.startCamera();
         }
 
-        codeTxt = (EditText) findViewById(R.id.claim_insert_code_edit);
-        errorTxt = (TextView) findViewById(R.id.claim_error_txt);
+        codeTxt = (EditText) findViewById(R.id.checkout_insert_code_edit);
+        errorTxt = (TextView) findViewById(R.id.checkout_error_txt);
         errorTxt.setVisibility(View.GONE);
         codeTxt.setBackgroundResource(R.drawable.background_light_blue_rect);
         GradientDrawable drawable = (GradientDrawable) codeTxt.getBackground();
         drawable.setStroke(1, Color.TRANSPARENT);
-        nextBtn = (Button) findViewById(R.id.claim_next_btn);
-        Button cancelBtn = (Button) findViewById(R.id.claim_cancel_btn);
+        nextBtn = (Button) findViewById(R.id.checkout_next_btn);
+        Button cancelBtn = (Button) findViewById(R.id.checkout_cancel_btn);
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,13 +93,13 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
                     codeTxt.setBackgroundResource(R.drawable.background_light_blue_rect);
                     GradientDrawable drawable = (GradientDrawable) codeTxt.getBackground();
                     drawable.setStroke(1, Color.TRANSPARENT);
-                    claimWithCode(codeTxt.getText().toString());
+//                    checkoutWithCode(codeTxt.getText().toString());
                 } else {
                     codeTxt.setBackgroundResource(R.drawable.background_light_blue_rect);
                     GradientDrawable drawable = (GradientDrawable) codeTxt.getBackground();
                     drawable.setStroke(1, Color.RED);
                     errorTxt.setVisibility(View.VISIBLE);
-                    Vibrator v = (Vibrator) ClaimActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+                    Vibrator v = (Vibrator) ClaimCodeActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(1000);
                 }
             }
@@ -128,14 +128,14 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 //                if (hasFocus) {
-//                    ClaimActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//                    CheckoutActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 //                }
             }
         });
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ClaimActivity.this, MainActivity.class);
+                Intent i = new Intent(ClaimCodeActivity.this, MainActivity.class);
                 i.putExtra("backView", "back");
                 startActivity(i);
                 finish();
@@ -148,36 +148,19 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mydecoderview != null){
-            mydecoderview.startCamera();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mydecoderview != null){
-            mydecoderview.stopCamera();
-        }
-
-    }
-
-    private void claimWithCode(final String code) {
+    private void checkoutWithCode(final String code) {
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mProgressDialog.setMessage("Claiming...");
+        mProgressDialog.setMessage("Checking out...");
         mProgressDialog.show();
         mProgressDialog.setCancelable(false);
         mProgressDialog.setCanceledOnTouchOutside(false);
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String uuid = AndroidUtilities.getUUID(ClaimActivity.this);
-                    receivedObj = APIInterface.claimWithCode(code);
+                    String uuid = AndroidUtilities.getUUID(ClaimCodeActivity.this);
+                    receivedObj = APIInterface.checkoutWithCode(code,uuid);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -187,12 +170,11 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
                             }
 
                             if (receivedObj != null) {
-                                Log.i("devoloTest", "");
                                 try {
                                     JSONObject jsonData = receivedObj.getJSONObject("data");
 
-                                    Intent i = new Intent(ClaimActivity.this, ClaimAmountActivity.class);
-                                    i.putExtra("claimObj", jsonData.toString());
+                                    Intent i = new Intent(ClaimCodeActivity.this, PaidInFullActivity.class);
+                                    i.putExtra("checkoutObj", jsonData.toString());
                                     startActivity(i);
                                     finish();
 
@@ -201,13 +183,13 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
                                 }
 
                             } else {
-                                Vibrator v = (Vibrator) ClaimActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+                                Vibrator v = (Vibrator) ClaimCodeActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
                                 v.vibrate(1000);
-                                new PromptDialog(ClaimActivity.this)
+                                new PromptDialog(ClaimCodeActivity.this)
                                         .setDialogType(PromptDialog.DIALOG_TYPE_WRONG)
                                         .setAnimationEnable(true)
-                                        .setTitleText("Claim error")
-                                        .setContentText("Oops Claim failed. \n Please restart after exit.")
+                                        .setTitleText("Checkout error")
+                                        .setContentText("Oops Checkout failed. \n Please restart after exit.")
                                         .setPositiveListener("Ok", new PromptDialog.OnPositiveListener() {
                                             @Override
                                             public void onClick(PromptDialog dialog) {
@@ -226,16 +208,100 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
                             if (mProgressDialog.isShowing()) {
                                 mProgressDialog.dismiss();
                             }
-                            Vibrator v = (Vibrator) ClaimActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+                            Vibrator v = (Vibrator) ClaimCodeActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
                             v.vibrate(1000);
-                            new PromptDialog(ClaimActivity.this)
+                            new PromptDialog(ClaimCodeActivity.this)
                                     .setDialogType(PromptDialog.DIALOG_TYPE_WRONG)
                                     .setAnimationEnable(true)
-                                    .setTitleText("Claim error")
-                                    .setContentText("Oops Claim failed. \n Please restart after exit.")
+                                    .setTitleText("Checkout error")
+                                    .setContentText("Oops Checkout failed. \n Please restart after exit.")
                                     .setPositiveListener("Ok", new PromptDialog.OnPositiveListener() {
                                         @Override
                                         public void onClick(PromptDialog dialog) {
+                                            dialog.dismiss();
+                                        }
+                                    }).show();
+                        }
+                    });
+
+                }
+            }
+        }).start();
+    }
+
+    private void checkoutWithQRCode(final String code) {
+
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        pd.setMessage("Checking out...");
+        pd.show();
+        pd.setCancelable(false);
+        pd.setCanceledOnTouchOutside(false);
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String uuid = AndroidUtilities.getUUID(ClaimCodeActivity.this);
+                    receivedObj = APIInterface.checkoutWithQRCode(code,uuid);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (receivedObj != null) {
+
+                                try {
+                                    JSONObject jsonData = receivedObj.getJSONObject("data");
+                                    mydecoderview.stopCamera();
+                                    Intent i = new Intent(ClaimCodeActivity.this, PaidInFullActivity.class);
+                                    i.putExtra("checkoutObj", jsonData.toString());
+                                    startActivity(i);
+                                    finish();
+
+                                } catch (Exception e) {
+                                    Log.d("json_e-->", e.getMessage());
+                                }
+
+                            } else {
+
+                                if (pd.isShowing()) {
+                                    pd.dismiss();
+                                }
+                                Vibrator v = (Vibrator) ClaimCodeActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+                                v.vibrate(1000);
+                                new PromptDialog(ClaimCodeActivity.this)
+                                        .setDialogType(PromptDialog.DIALOG_TYPE_WRONG)
+                                        .setAnimationEnable(true)
+                                        .setTitleText("Checkout error")
+                                        .setContentText("Oops Checkout failed. \n Please restart after exit.")
+                                        .setPositiveListener("Ok", new PromptDialog.OnPositiveListener() {
+                                            @Override
+                                            public void onClick(PromptDialog dialog) {
+                                                b_alertStateFlg = false;
+                                                dialog.dismiss();
+                                            }
+                                        }).show();
+                            }
+
+                        }
+                    });
+                } catch (final Exception e) {
+                    Log.e("register error--->", e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (pd.isShowing()) {
+                                pd.dismiss();
+                            }
+                            Vibrator v = (Vibrator) ClaimCodeActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+                            v.vibrate(1000);
+                            new PromptDialog(ClaimCodeActivity.this)
+                                    .setDialogType(PromptDialog.DIALOG_TYPE_WRONG)
+                                    .setAnimationEnable(true)
+                                    .setTitleText("Checkout error")
+                                    .setContentText("Oops Checkout failed. \n Please restart after exit.")
+                                    .setPositiveListener("Ok", new PromptDialog.OnPositiveListener() {
+                                        @Override
+                                        public void onClick(PromptDialog dialog) {
+                                            b_alertStateFlg = false;
                                             dialog.dismiss();
                                         }
                                     }).show();
@@ -263,8 +329,8 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
 
         if (!b_alertStateFlg) {
             b_alertStateFlg = true;
-            if (text.contains("[CC]")) {
-                claimWithCode(text);
+            if (text.contains("[CS]")) {
+//                checkoutWithQRCode(text);
             } else {
                 b_alertStateFlg = false;
                 Toast toast = Toast.makeText(getApplicationContext(), "Scan Result Error : " + text, Toast.LENGTH_SHORT);
@@ -275,5 +341,33 @@ public class ClaimActivity extends AppCompatActivity implements QRCodeReaderView
                 v.vibrate(500);
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mydecoderview != null){
+            mydecoderview.startCamera();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mydecoderview != null){
+            mydecoderview.stopCamera();
+        }
+
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
     }
 }
