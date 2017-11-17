@@ -368,12 +368,14 @@ public class MainActivity extends AppCompatActivity implements NearByProtocol.Di
         if (sharedPref.getBoolean("activateState", false) && sharedPref.getBoolean("loginState", false) && sharedPref.getBoolean("registerState", false)) {
             checkoutBottomBtn.setVisibility(View.VISIBLE);
             claimBottomBtn.setVisibility(View.VISIBLE);
+            claimCodeBottomBtn.setVisibility(View.VISIBLE);
             reportBottomBtn.setVisibility(View.VISIBLE);
             refundBottomBtn.setVisibility(View.VISIBLE);
             chatBottomBtn.setVisibility(View.VISIBLE);
         } else {
             checkoutBottomBtn.setVisibility(View.GONE);
             claimBottomBtn.setVisibility(View.GONE);
+            claimCodeBottomBtn.setVisibility(View.GONE);
             reportBottomBtn.setVisibility(View.GONE);
             refundBottomBtn.setVisibility(View.GONE);
             chatBottomBtn.setVisibility(View.GONE);
